@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+:root {
+  --background: #FCF6F5;
+  --foreground: #1A0000;
+  --accent: #990011;
+  --accent-dark: #6D000C;
+  --accent-light: #BB0015;
+  --gray-50: #FFFFFF;
+  --gray-100: #FCF6F5;
+  --gray-200: #F5E6E4;
+  --gray-600: #6D000C;
+  --gray-900: #1A0000;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-dark: var(--accent-dark);
+  --color-accent-light: var(--accent-light);
+  --color-gray-50: var(--gray-50);
+  --color-gray-100: var(--gray-100);
+  --color-gray-200: var(--gray-200);
+  --color-gray-600: var(--gray-600);
+  --color-gray-900: var(--gray-900);
+  --font-serif: var(--font-literata);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* Base font size for rem calculations */
+  font-size: 16px;
+}
+
+html.font-small {
+  font-size: 14px;
+}
+
+html.font-normal {
+  font-size: 16px;
+}
+
+html.font-large {
+  font-size: 18px;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-literata), Georgia, serif;
+  font-size: 1.1875rem; /* 19px at base 16px */
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* High Contrast Mode */
+body.high-contrast {
+  --background: #FFFFFF;
+  --foreground: #000000;
+  --accent: #990011;
+  --accent-dark: #6D000C;
+  --accent-light: #BB0015;
+  --gray-50: #F5F5F5;
+  --gray-100: #E5E5E5;
+  --gray-600: #404040;
+  --gray-900: #000000;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-literata), Georgia, serif;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--gray-900);
+}
+
+/* Typografie Hierarchie - optimiert */
+h1 { font-size: 3.75rem; } /* 60px */
+h2 { font-size: 2.5rem; } /* 40px */
+h3 { font-size: 1.5rem; } /* 24px */
+p, li { font-size: 1rem; line-height: 1.7; } /* verwendet body font-size */
+.text-lead { font-size: 1.25rem; line-height: 1.65; } /* 125% of body */
+
+.font-serif {
+  font-family: var(--font-literata), Georgia, serif;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gray-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-600);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
