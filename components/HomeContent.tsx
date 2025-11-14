@@ -63,20 +63,20 @@ export default function HomeContent() {
   return (
     <>
       {/* Hero - Der Leser als Held */}
-      <section id="top" className="min-h-screen flex items-center px-6 pt-32 pb-20 relative overflow-hidden">
+      <section id="top" className="min-h-[calc(100vh-4rem)] lg:min-h-screen flex items-center px-6 pt-24 lg:pt-32 pb-12 lg:pb-20 relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-background"></div>
         </div>
 
         <div className="max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
               <motion.p
-                className="text-accent font-semibold tracking-wider mb-6 uppercase text-sm"
+                className="text-accent font-semibold tracking-wider mb-3 lg:mb-6 uppercase text-sm"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
@@ -84,13 +84,13 @@ export default function HomeContent() {
                 Literatur, die bewegt
               </motion.p>
 
-              <h1 className="mb-8">
+              <h1 className="mb-4 lg:mb-8">
                 Geschichten,<br/>
                 die das Leben<br/>
                 erzählen
               </h1>
 
-              <div className="space-y-6 mb-10 border-l-4 border-accent pl-8">
+              <div className="space-y-4 lg:space-y-6 mb-6 lg:mb-10 border-l-4 border-accent pl-6 lg:pl-8">
                 <p className="text-lead">
                   Zwischen Verlust und Verbindung, zwischen Alltag und Poesie –
                   Hugo Ramnek schreibt über das, was uns alle berührt.
@@ -98,27 +98,27 @@ export default function HomeContent() {
               </div>
 
               <motion.div
-                className="flex flex-col sm:flex-row gap-4 mb-10"
+                className="flex flex-col sm:flex-row gap-3 lg:gap-4 mb-6 lg:mb-10"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
               >
                 <a
                   href="#buecher"
-                  className="inline-block bg-accent hover:bg-accent-dark text-white px-10 py-4 text-center font-semibold transition-all hover:shadow-xl rounded"
+                  className="inline-block bg-accent hover:bg-accent-dark text-white px-8 lg:px-10 py-3 lg:py-4 text-center font-semibold transition-all hover:shadow-xl rounded"
                 >
                   Bücher entdecken
                 </a>
                 <a
                   href="#live"
-                  className="inline-block bg-transparent hover:bg-accent/10 border-2 border-accent text-accent px-10 py-4 text-center font-semibold transition-all rounded"
+                  className="inline-block bg-transparent hover:bg-accent/10 border-2 border-accent text-accent px-8 lg:px-10 py-3 lg:py-4 text-center font-semibold transition-all rounded"
                 >
                   Lesungen erleben
                 </a>
               </motion.div>
 
               <motion.div
-                className="flex flex-wrap items-center gap-6 text-sm"
+                className="flex flex-wrap items-center gap-4 lg:gap-6 text-sm"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8 }}
@@ -145,7 +145,7 @@ export default function HomeContent() {
             </motion.div>
 
             <motion.div
-              className="relative"
+              className="relative hidden lg:block"
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
