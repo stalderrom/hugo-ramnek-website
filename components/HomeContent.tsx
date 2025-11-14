@@ -63,20 +63,20 @@ export default function HomeContent() {
   return (
     <>
       {/* Hero - Der Leser als Held */}
-      <section id="top" className="min-h-[calc(100vh-4rem)] lg:min-h-screen flex items-center px-6 pt-24 lg:pt-32 pb-12 lg:pb-20 relative overflow-hidden">
+      <section id="top" className="min-h-0 lg:min-h-screen flex items-start lg:items-center px-6 pt-12 lg:pt-32 pb-4 lg:pb-20 relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-background"></div>
         </div>
 
         <div className="max-w-7xl mx-auto w-full">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-start lg:items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
               <motion.p
-                className="text-accent font-semibold tracking-wider mb-3 lg:mb-6 uppercase text-sm"
+                className="hidden lg:block text-accent font-semibold tracking-wider lg:mb-6 uppercase lg:text-sm"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
@@ -84,59 +84,59 @@ export default function HomeContent() {
                 Literatur, die bewegt
               </motion.p>
 
-              <h1 className="mb-4 lg:mb-8">
+              <h1 className="text-4xl lg:text-6xl leading-tight mb-2 lg:mb-8">
                 Geschichten,<br/>
                 die das Leben<br/>
                 erzählen
               </h1>
 
-              <div className="space-y-4 lg:space-y-6 mb-6 lg:mb-10 border-l-4 border-accent pl-6 lg:pl-8">
-                <p className="text-lead">
+              <div className="mb-3 lg:mb-10 border-l-4 border-accent pl-4 lg:pl-8">
+                <p className="text-sm lg:text-xl leading-snug lg:leading-relaxed">
                   Zwischen Verlust und Verbindung, zwischen Alltag und Poesie –
                   Hugo Ramnek schreibt über das, was uns alle berührt.
                 </p>
               </div>
 
               <motion.div
-                className="flex flex-col sm:flex-row gap-3 lg:gap-4 mb-6 lg:mb-10"
+                className="flex flex-col sm:flex-row gap-2 lg:gap-4 mb-3 lg:mb-10"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
               >
                 <a
                   href="#buecher"
-                  className="inline-block bg-accent hover:bg-accent-dark text-white px-8 lg:px-10 py-3 lg:py-4 text-center font-semibold transition-all hover:shadow-xl rounded"
+                  className="inline-block bg-accent hover:bg-accent-dark text-white px-6 lg:px-10 py-2 lg:py-4 text-center font-semibold transition-all hover:shadow-xl rounded text-sm lg:text-base"
                 >
                   Bücher entdecken
                 </a>
                 <a
                   href="#live"
-                  className="inline-block bg-transparent hover:bg-accent/10 border-2 border-accent text-accent px-8 lg:px-10 py-3 lg:py-4 text-center font-semibold transition-all rounded"
+                  className="inline-block bg-transparent hover:bg-accent/10 border-2 border-accent text-accent px-6 lg:px-10 py-2 lg:py-4 text-center font-semibold transition-all rounded text-sm lg:text-base"
                 >
                   Lesungen erleben
                 </a>
               </motion.div>
 
               <motion.div
-                className="flex flex-wrap items-center gap-4 lg:gap-6 text-sm"
+                className="flex flex-wrap items-center gap-3 lg:gap-6 text-xs lg:text-sm"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8 }}
               >
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                <div className="flex items-center gap-1.5 lg:gap-2">
+                  <svg className="w-4 h-4 lg:w-5 lg:h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                   <span className="font-semibold">Mehrfach ausgezeichnet</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center gap-1.5 lg:gap-2">
+                  <svg className="w-4 h-4 lg:w-5 lg:h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
                   <span className="font-semibold">9 Bücher publiziert</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex items-center gap-1.5 lg:gap-2">
+                  <svg className="w-4 h-4 lg:w-5 lg:h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                   </svg>
                   <span className="font-semibold">Prosa, Lyrik & Performance</span>
@@ -150,7 +150,7 @@ export default function HomeContent() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <div className="relative aspect-[3/4] w-[90%] max-w-md mx-auto lg:w-[90%] lg:max-w-full">
+              <div className="relative aspect-[15/16] w-[90%] max-w-md mx-auto lg:w-[90%] lg:max-w-full">
                 <div className="absolute -inset-4 bg-accent/10 rounded"></div>
                 <div className="relative w-full h-full overflow-hidden rounded shadow-2xl">
                   <img
