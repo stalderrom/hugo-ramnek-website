@@ -65,13 +65,6 @@ export default async function BookPage({ params }: PageProps) {
     },
     datePublished: book.year?.toString(),
     image: book.coverImage,
-    offers: {
-      '@type': 'Offer',
-      price: book.price.eur || book.price.chf,
-      priceCurrency: book.price.eur ? 'EUR' : 'CHF',
-      availability: 'https://schema.org/InStock',
-      url: book.purchaseLink,
-    },
     ...(book.awards && book.awards.length > 0 && {
       awards: book.awards,
     }),
@@ -207,14 +200,6 @@ export default async function BookPage({ params }: PageProps) {
                     <span>{book.year}</span>
                   </div>
                 )}
-                <div className="flex gap-6">
-                  <span className="font-semibold min-w-28">Preis:</span>
-                  <span>
-                    {book.price.eur && `EUR ${book.price.eur}`}
-                    {book.price.eur && book.price.chf && ' / '}
-                    {book.price.chf && `CHF ${book.price.chf}`}
-                  </span>
-                </div>
                 {book.ebook && (
                   <div className="flex gap-6">
                     <span className="font-semibold min-w-28">E-Book:</span>
@@ -223,9 +208,11 @@ export default async function BookPage({ params }: PageProps) {
                 )}
               </div>
 
-              {/* Purchase Button */}
+              {/* Purchase Link */}
               <a
                 href={book.purchaseLink}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-block bg-accent hover:bg-accent-dark text-white px-12 py-5 rounded font-bold text-xl transition-all hover:shadow-xl"
               >
                 Beim Verlag bestellen
@@ -361,15 +348,15 @@ export default async function BookPage({ params }: PageProps) {
             © {new Date().getFullYear()} Hugo Ramnek. Alle Rechte vorbehalten.
           </p>
           <p className="text-sm text-gray-400">
-            Design & Programmierung:{' '}
             <a
-              href="https://www.tellgrafik.ch"
+              href="https://tellgrafik.ch/leistungen"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
               className="text-gray-300 hover:text-white transition-colors underline"
             >
-              Tell Grafik
+              Webdesign und Webentwicklung
             </a>
+            {' '}aus Zürich
           </p>
         </div>
       </footer>

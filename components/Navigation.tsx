@@ -2,10 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,12 +18,27 @@ export default function Navigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setMobileMenuOpen(false);
+  const handleNavClick = (sectionId: string, e: React.MouseEvent) => {
+    setMobileMenuOpen(false);
+
+    // If we're on the home page, scroll smoothly
+    if (pathname === '/') {
+      e.preventDefault();
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
+    // Otherwise, the Link will navigate to /#section
+  };
+
+  const handleLogoClick = (e: React.MouseEvent) => {
+    // If we're on the home page, scroll to top smoothly
+    if (pathname === '/') {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    // Otherwise, the Link will navigate to /
   };
 
   const navItems = [
@@ -42,27 +60,30 @@ export default function Navigation() {
       >
         <div className="max-w-7xl mx-auto px-6 py-5">
           <div className="flex items-center justify-between">
-            <motion.button
-              onClick={() => scrollToSection('top')}
-              className="text-3xl md:text-4xl font-bold tracking-tight hover:text-accent transition-colors"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              Hugo Ramnek
-            </motion.button>
+            <Link href="/">
+              <motion.div
+                onClick={handleLogoClick}
+                className="text-3xl md:text-4xl font-bold tracking-tight hover:text-accent transition-colors cursor-pointer"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Hugo Ramnek
+              </motion.div>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-10">
               {navItems.map((item) => (
-                <motion.button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="text-lg font-semibold tracking-wide hover:text-accent transition-colors relative group"
-                  whileHover={{ y: -2 }}
-                >
-                  {item.label}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
-                </motion.button>
+                <Link key={item.id} href={`/#${item.id}`}>
+                  <motion.div
+                    onClick={(e) => handleNavClick(item.id, e)}
+                    className="text-lg font-semibold tracking-wide hover:text-accent transition-colors relative group cursor-pointer"
+                    whileHover={{ y: -2 }}
+                  >
+                    {item.label}
+                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300"></span>
+                  </motion.div>
+                </Link>
               ))}
             </div>
 
@@ -101,16 +122,17 @@ export default function Navigation() {
           >
             <div className="flex flex-col items-start gap-6 p-8 mt-20">
               {navItems.map((item, index) => (
-                <motion.button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="text-2xl font-semibold hover:text-accent transition-colors"
-                >
-                  {item.label}
-                </motion.button>
+                <Link key={item.id} href={`/#${item.id}`}>
+                  <motion.div
+                    onClick={(e) => handleNavClick(item.id, e)}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="text-2xl font-semibold hover:text-accent transition-colors cursor-pointer"
+                  >
+                    {item.label}
+                  </motion.div>
+                </Link>
               ))}
             </div>
           </motion.div>

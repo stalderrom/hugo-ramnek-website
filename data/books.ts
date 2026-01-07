@@ -67,7 +67,7 @@ export const books: Book[] = [
     isbn: '978-3-99029-379-9',
     ebook: true,
     coverImage: '/covers/die-schneekugel.jpg',
-    purchaseLink: '#',
+    purchaseLink: 'https://www.wieser-verlag.com/buecher/die-schneekugel-978-3-99029-379-9/',
     year: 2020,
     awards: [
       'Premio letterario internazionale Merano-Europa 2019',
@@ -145,8 +145,8 @@ export const books: Book[] = [
     isbn: '978-3-99029-346-1',
     ebook: true,
     coverImage: '/covers/das-letzte-von-leopold.jpg',
-    purchaseLink: '#',
-    year: 2018,
+    purchaseLink: 'https://www.wieser-verlag.com/buecher/das-letzte-von-leopold-978-3-99029-346-1/',
+    year: 2019,
     awards: ['Preis des Kärntner Schriftstellerverbandes 2008 (Urfassung)'],
     specialNotes: 'Das Letzte von Leopold (Urfassung) erhielt 2008 den Preis des Kärntner Schriftstellerverbandes.',
     reviews: [
@@ -170,7 +170,7 @@ export const books: Book[] = [
     isbn: '978-3-99029-262-4',
     ebook: true,
     coverImage: '/covers/meine-ge-ge-generation.jpg',
-    purchaseLink: '#',
+    purchaseLink: 'https://www.wieser-verlag.com/buecher/meine-ge-ge-generation-978-3-99029-262-4/',
     year: 2017,
     reviews: [
       {
@@ -226,7 +226,7 @@ Einen ganzen Sommer lang lag Maureen unter der Blutbuche. Und ich lag zwischen i
     isbn: '978-3-85129-864-2',
     ebook: false,
     coverImage: '/covers/der-letzte-badegast.jpg',
-    purchaseLink: '#',
+    purchaseLink: 'https://www.wieser-verlag.com/buecher/der-letzte-badegast-978-3-85129-864-2/',
     year: 2010,
     awards: [
       'Anerkennungsgabe der Stadt Zürich 2010',
@@ -273,8 +273,8 @@ Wie vor einem Wunder stehen die Kleinstädter und staunen, was tagsüber und doc
     isbn: '978-3-99029-041-5',
     ebook: false,
     coverImage: '/covers/kettenkarussell.jpg',
-    purchaseLink: '#',
-    year: 2013,
+    purchaseLink: 'https://www.wieser-verlag.com/buecher/kettenkarussell-semanji-vrtiljak-978-3-99029-041-5/',
+    year: 2012,
     awards: ['Wettbewerbstext beim Ingeborg-Bachmann-Preis 2012'],
     specialNotes: 'Wettbewerbstext beim Ingeborg-Bachmann-Preis 2012.',
     reviews: [

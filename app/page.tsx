@@ -25,15 +25,15 @@ export default function Home() {
             © {new Date().getFullYear()} Hugo Ramnek. Alle Rechte vorbehalten.
           </p>
           <p className="text-sm text-gray-400">
-            Design & Programmierung:{' '}
             <a
-              href="https://www.tellgrafik.ch"
+              href="https://tellgrafik.ch/leistungen"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
               className="text-gray-300 hover:text-white transition-colors underline"
             >
-              Tell Grafik
+              Webdesign und Webentwicklung
             </a>
+            {' '}aus Zürich
           </p>
         </div>
       </footer>

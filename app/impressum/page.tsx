@@ -69,12 +69,12 @@ export default function ImpressumPage() {
               <h2>Gestaltung und technische Umsetzung</h2>
               <p>
                 <a
-                  href="https://www.tellgrafik.ch"
+                  href="https://tellgrafik.ch/leistungen"
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="text-accent hover:text-accent-dark underline"
                 >
-                  Tell Grafik
+                  Webdesign und Webentwicklung – Tell Grafik, Zürich
                 </a>
               </p>
             </section>
@@ -117,15 +117,15 @@ export default function ImpressumPage() {
             © {new Date().getFullYear()} Hugo Ramnek. Alle Rechte vorbehalten.
           </p>
           <p className="text-sm text-gray-400">
-            Design & Programmierung:{' '}
             <a
-              href="https://www.tellgrafik.ch"
+              href="https://tellgrafik.ch/leistungen"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
               className="text-gray-300 hover:text-white transition-colors underline"
             >
-              Tell Grafik
+              Webdesign und Webentwicklung
             </a>
+            {' '}aus Zürich
           </p>
         </div>
       </footer>

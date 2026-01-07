@@ -151,7 +151,6 @@ export default function HomeContent() {
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               <div className="relative aspect-[15/16] w-[90%] max-w-md mx-auto lg:w-[90%] lg:max-w-full">
-                <div className="absolute -inset-4 bg-accent/10 rounded"></div>
                 <div className="relative w-full h-full overflow-hidden rounded shadow-2xl">
                   <img
                     src="/hugo-ramnek.jpg"
@@ -466,30 +465,13 @@ export default function HomeContent() {
                       <p className="text-base leading-relaxed line-clamp-3 mb-4 flex-1">
                         {book.description}
                       </p>
-                      <div className="flex items-center justify-between mt-auto pt-4 border-t border-gray-200">
-                        <div>
-                          <p className="text-sm text-gray-600">Ab</p>
-                          <p className="font-bold text-lg text-accent">
-                            {book.price.eur ? `€ ${book.price.eur}` : `CHF ${book.price.chf}`}
-                          </p>
-                        </div>
+                      <div className="flex items-center justify-end mt-auto pt-4 border-t border-gray-200">
                         <span className="text-accent font-semibold group-hover:underline">
                           Mehr erfahren →
                         </span>
                       </div>
                     </div>
                   </Link>
-                  <div className="p-6 pt-0">
-                    <a
-                      href={book.purchaseLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="block w-full bg-accent hover:bg-accent-dark text-white text-center px-6 py-3 rounded font-bold transition-all hover:scale-105 shadow-lg"
-                    >
-                      Beim Verlag bestellen
-                    </a>
-                  </div>
                 </div>
               </motion.div>
             ))}
@@ -508,9 +490,9 @@ export default function HomeContent() {
             initial="initial"
           >
             <div className="text-center mb-8">
-              <h2 className="mb-4 text-white">Bleiben Sie informiert</h2>
+              <h2 className="mb-4 text-white">Literarische Neuigkeiten</h2>
               <p className="text-xl opacity-95 leading-relaxed">
-                Erfahren Sie als Erstes von neuen Büchern, Lesungen und besonderen Veranstaltungen.
+                Gelegentliche Informationen zu neuen Büchern, Lesungen und Veranstaltungen.
               </p>
             </div>
 
@@ -657,9 +639,9 @@ export default function HomeContent() {
               </p>
               <a
                 href="#kontakt"
-                className="inline-block bg-white text-accent px-12 py-5 rounded font-bold text-lg hover:bg-gray-100 transition-all hover:scale-105 shadow-xl"
+                className="inline-block bg-white text-accent px-12 py-5 rounded font-bold text-lg hover:bg-gray-100 transition-all shadow-xl"
               >
-                Jetzt anfragen
+                Kontaktinformationen
               </a>
             </div>
           </motion.div>
@@ -695,24 +677,18 @@ export default function HomeContent() {
                 time: '19:30 Uhr',
                 title: 'Die längste Nacht',
                 location: 'Literaturhaus Zürich',
-                availability: 'Noch wenige Plätze',
-                urgent: true,
               },
               {
                 date: '22. April 2025',
                 time: '20:00 Uhr',
                 title: 'Ramnek & fÖn&tÖn',
                 location: 'Theater am Gleis, Winterthur',
-                availability: 'Tickets verfügbar',
-                urgent: false,
               },
               {
                 date: '10. Mai 2025',
                 time: '19:00 Uhr',
                 title: 'Lesungen aus der Schneekugel',
                 location: 'Buchhandlung Beer, St. Gallen',
-                availability: 'Tickets verfügbar',
-                urgent: false,
               },
             ].map((event, index) => (
               <motion.div
@@ -731,11 +707,6 @@ export default function HomeContent() {
                       </div>
                       <span className="text-gray-600">•</span>
                       <span className="text-gray-600">{event.time}</span>
-                      {event.urgent && (
-                        <span className="bg-accent text-white px-3 py-1 rounded-full text-xs font-bold uppercase">
-                          Begrenzt
-                        </span>
-                      )}
                     </div>
                     <h3 className="mb-2">{event.title}</h3>
                     <div className="flex items-center gap-2 text-gray-600">
@@ -745,17 +716,6 @@ export default function HomeContent() {
                       </svg>
                       <span>{event.location}</span>
                     </div>
-                  </div>
-                  <div className="flex flex-col items-end gap-3">
-                    <span className={`text-sm font-semibold ${event.urgent ? 'text-accent' : 'text-gray-600'}`}>
-                      {event.availability}
-                    </span>
-                    <a
-                      href="#kontakt"
-                      className="bg-accent hover:bg-accent-dark text-white px-8 py-3 rounded font-bold transition-all hover:scale-105 shadow-lg whitespace-nowrap"
-                    >
-                      Tickets anfragen
-                    </a>
                   </div>
                 </div>
               </motion.div>
@@ -772,16 +732,10 @@ export default function HomeContent() {
             <p className="text-lg mb-4">
               <strong>Sie planen eine Veranstaltung?</strong>
             </p>
-            <p className="mb-6 leading-relaxed">
+            <p className="leading-relaxed">
               Hugo Ramnek ist für Lesungen, Leseperformances und literarische Veranstaltungen buchbar.
-              Sprechen Sie uns auf freie Termine an!
+              Für Anfragen nutzen Sie gerne die Kontaktmöglichkeiten weiter unten.
             </p>
-            <a
-              href="#kontakt"
-              className="inline-block bg-accent hover:bg-accent-dark text-white px-10 py-4 rounded font-bold transition-all hover:scale-105 shadow-lg"
-            >
-              Verfügbarkeit anfragen
-            </a>
           </motion.div>
         </div>
       </section>
