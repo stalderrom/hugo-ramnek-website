@@ -174,14 +174,12 @@ export default function DatenschutzPage() {
           </p>
           <p className="text-sm text-gray-400">
             <a
-              href="https://tellgrafik.ch/leistungen"
+              href="https://tellgrafik.ch"
               target="_blank"
-              rel="noopener"
               className="text-gray-300 hover:text-white transition-colors underline"
             >
-              Webdesign und Webentwicklung
+              Grafikdesign & Web, Tell Grafik
             </a>
-            {' '}aus Zürich
           </p>
         </div>
       </footer>

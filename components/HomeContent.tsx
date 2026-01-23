@@ -27,36 +27,36 @@ export default function HomeContent() {
     message: ''
   });
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [newsletterStatus, setNewsletterStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('sending');
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setFormStatus('sent');
-      setFormData({ name: '', email: '', message: '' });
-      setTimeout(() => setFormStatus('idle'), 3000);
+      // TODO: Ersetzen Sie 'YOUR_CONTACT_FORM_ID' mit Ihrer Formspree Form ID
+      const response = await fetch('https://formspree.io/f/YOUR_CONTACT_FORM_ID', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          _subject: 'Neue Kontaktanfrage von Website',
+        }),
+      });
+
+      if (response.ok) {
+        setFormStatus('sent');
+        setFormData({ name: '', email: '', message: '' });
+        setTimeout(() => setFormStatus('idle'), 3000);
+      } else {
+        throw new Error('Form submission failed');
+      }
     } catch (error) {
       setFormStatus('error');
       setTimeout(() => setFormStatus('idle'), 3000);
-    }
-  };
-
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setNewsletterStatus('sending');
-
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      setNewsletterStatus('sent');
-      setNewsletterEmail('');
-      setTimeout(() => setNewsletterStatus('idle'), 5000);
-    } catch (error) {
-      setNewsletterStatus('error');
-      setTimeout(() => setNewsletterStatus('idle'), 3000);
     }
   };
 
@@ -475,50 +475,6 @@ export default function HomeContent() {
                 </div>
               </motion.div>
             ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Newsletter CTA - Lead Generation */}
-      <section className="py-20 px-6">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            className="bg-gradient-to-br from-accent to-accent-dark text-white p-12 md:p-16 rounded-lg shadow-2xl"
-            {...fadeInUp}
-            viewport={{ once: true }}
-            whileInView="animate"
-            initial="initial"
-          >
-            <div className="text-center mb-8">
-              <h2 className="mb-4 text-white">Literarische Neuigkeiten</h2>
-              <p className="text-xl opacity-95 leading-relaxed">
-                Gelegentliche Informationen zu neuen Büchern, Lesungen und Veranstaltungen.
-              </p>
-            </div>
-
-            <form onSubmit={handleNewsletterSubmit} className="max-w-md mx-auto">
-              <div className="flex flex-col sm:flex-row gap-4">
-                <input
-                  type="email"
-                  value={newsletterEmail}
-                  onChange={(e) => setNewsletterEmail(e.target.value)}
-                  placeholder="ihre.email@beispiel.com"
-                  required
-                  disabled={newsletterStatus === 'sent'}
-                  className="flex-1 px-6 py-4 rounded bg-white text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-white focus:outline-none disabled:opacity-50"
-                />
-                <button
-                  type="submit"
-                  disabled={newsletterStatus === 'sending' || newsletterStatus === 'sent'}
-                  className="px-8 py-4 bg-white text-accent font-bold rounded hover:bg-gray-100 transition-all disabled:opacity-50 whitespace-nowrap"
-                >
-                  {newsletterStatus === 'sending' ? 'Wird gesendet...' : newsletterStatus === 'sent' ? '✓ Angemeldet!' : 'Anmelden'}
-                </button>
-              </div>
-              <p className="text-sm opacity-80 mt-4 text-center">
-                Kostenlos und jederzeit abbestellbar. Keine Weitergabe an Dritte.
-              </p>
-            </form>
           </motion.div>
         </div>
       </section>

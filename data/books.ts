@@ -27,6 +27,7 @@ export interface Book {
   isbn: string;
   ebook: boolean;
   coverImage: string;
+  additionalImages?: string[];
   purchaseLink: string;
   year?: number;
   awards?: string[];
@@ -326,6 +327,7 @@ willkommen du bist zu hause`,
     isbn: '978-3-99029-070-5',
     ebook: false,
     coverImage: '/covers/momentum.jpg',
+    additionalImages: ['/covers/momentum-2.jpg'],
     purchaseLink: '#',
     year: 2014,
     specialNotes: '»Momentum« bedeutet den Augenblick, die Bewegung, den Schwung. Der Maler und der Schriftsteller greifen sich Momente heraus, die sie festhalten – im Bild, im Text – um sie der Vergänglichkeit zu entreißen.',
@@ -344,6 +346,7 @@ Es sind Texte und Bilder aller Art: hintergründig, auch rätselhaft, komisch, k
     isbn: '978-3-40779-986-9',
     ebook: false,
     coverImage: '/covers/wo-kommen-die-worte-her.jpg',
+    additionalImages: ['/covers/wo-kommen-die-worte-her-2.jpg'],
     purchaseLink: '#',
     year: 2012,
     awards: ['Die besten 7 Bücher für junge Leser (Deutschlandfunk), Januar 2012'],
@@ -420,6 +423,7 @@ Das Glück, als Aleyna endlich wieder im Kindergarten auftaucht; die Zärtlichke
     isbn: '978-3-407-80235-8',
     ebook: false,
     coverImage: '/covers/gluecksvogel.jpg',
+    additionalImages: ['/covers/gluecksvogel-2.jpg'],
     purchaseLink: '#',
     specialNotes: 'Eine Anthologie mit einer Geschichte von Hugo Ramnek und weiteren renommierten AutorInnen.',
     reviews: [

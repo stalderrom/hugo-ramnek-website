@@ -220,6 +220,25 @@ export default async function BookPage({ params }: PageProps) {
             </div>
           </div>
 
+          {/* Additional Images */}
+          {book.additionalImages && book.additionalImages.length > 0 && (
+            <div className="mt-24">
+              <h2 className="mb-10">Weitere Bilder</h2>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {book.additionalImages.map((imagePath, index) => (
+                  <div key={index} className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-shadow">
+                    <Image
+                      src={imagePath}
+                      alt={`${book.title} - Bild ${index + 1}`}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Pressestimmen */}
           {book.reviews && book.reviews.length > 0 && (
             <div className="mt-24 border-t-2 border-accent/20 pt-16">
@@ -349,14 +368,12 @@ export default async function BookPage({ params }: PageProps) {
           </p>
           <p className="text-sm text-gray-400">
             <a
-              href="https://tellgrafik.ch/leistungen"
+              href="https://tellgrafik.ch"
               target="_blank"
-              rel="noopener"
               className="text-gray-300 hover:text-white transition-colors underline"
             >
-              Webdesign und Webentwicklung
+              Grafikdesign & Web, Tell Grafik
             </a>
-            {' '}aus Zürich
           </p>
         </div>
       </footer>

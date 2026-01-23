@@ -69,12 +69,11 @@ export default function ImpressumPage() {
               <h2>Gestaltung und technische Umsetzung</h2>
               <p>
                 <a
-                  href="https://tellgrafik.ch/leistungen"
+                  href="https://tellgrafik.ch"
                   target="_blank"
-                  rel="noopener"
                   className="text-accent hover:text-accent-dark underline"
                 >
-                  Webdesign und Webentwicklung – Tell Grafik, Zürich
+                  Grafikdesign & Web, Tell Grafik
                 </a>
               </p>
             </section>
@@ -118,14 +117,12 @@ export default function ImpressumPage() {
           </p>
           <p className="text-sm text-gray-400">
             <a
-              href="https://tellgrafik.ch/leistungen"
+              href="https://tellgrafik.ch"
               target="_blank"
-              rel="noopener"
               className="text-gray-300 hover:text-white transition-colors underline"
             >
-              Webdesign und Webentwicklung
+              Grafikdesign & Web, Tell Grafik
             </a>
-            {' '}aus Zürich
           </p>
         </div>
       </footer>
