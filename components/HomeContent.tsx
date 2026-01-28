@@ -20,6 +20,60 @@ const staggerContainer = {
   }
 };
 
+const upcomingEvents = [
+  {
+    id: 1,
+    date: '20. November 2024',
+    time: '19:30 Uhr',
+    title: 'DIE LÄNGSTE NACHT',
+    subtitle: 'Leseperformance mit Puppen',
+    shortLocation: 'Atelier für Kunst und Philosophie, Zürich',
+    description: `Hugo Ramnek liest aus seinem Gedichtband Die längste Nacht, begleitet von Puppen, gebaut und geführt von Delia Dahinden.
+
+Die Gedichte erzählen von alten Eltern und anderen Sterblichen. Von Verlust und Verbindung. Von der Gemeinschaft der Lebenden und der Toten. Dahindens Puppen und Ramneks Texte stehen, nein, schweben in einem Dialog und erzählen von der Anwesenheit der Abwesenden, gleichzeitig beredt und stumm. Und wirken gerade deshalb so berührend.`,
+    price: '30 / 20',
+    location: {
+      name: 'Atelier für Kunst und Philosophie',
+      contact: 'Martin Kunz',
+      address: 'Albisriederstrasse 162',
+      city: '8003 Zürich',
+      phone: '+41794309714'
+    }
+  },
+  {
+    id: 2,
+    date: '15. März 2025',
+    time: '19:30 Uhr',
+    title: 'Die längste Nacht',
+    subtitle: 'Leseperformance',
+    shortLocation: 'Literaturhaus Zürich',
+    description: 'Eine berührende Lesung aus dem Gedichtband Die längste Nacht.',
+    price: '25 / 18',
+    location: {
+      name: 'Literaturhaus Zürich',
+      address: 'Limmatquai 62',
+      city: '8001 Zürich',
+      phone: ''
+    }
+  },
+  {
+    id: 3,
+    date: '22. April 2025',
+    time: '20:00 Uhr',
+    title: 'Ramnek & fÖn&tÖn',
+    subtitle: 'Leseperformance mit Musik',
+    shortLocation: 'Theater am Gleis, Winterthur',
+    description: 'Leseperformance mit dem Duo fÖn&tÖn – zärtlich, witzig, melancholisch.',
+    price: '30 / 22',
+    location: {
+      name: 'Theater am Gleis',
+      address: 'Theaterstrasse 6',
+      city: '8400 Winterthur',
+      phone: ''
+    }
+  },
+];
+
 export default function HomeContent() {
   const [formData, setFormData] = useState({
     name: '',
@@ -27,6 +81,7 @@ export default function HomeContent() {
     message: ''
   });
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [selectedEvent, setSelectedEvent] = useState<typeof upcomingEvents[0] | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -92,8 +147,9 @@ export default function HomeContent() {
 
               <div className="mb-3 lg:mb-10 border-l-4 border-accent pl-4 lg:pl-8">
                 <p className="text-sm lg:text-xl leading-snug lg:leading-relaxed">
-                  Zwischen Verlust und Verbindung, zwischen Alltag und Poesie –
-                  Hugo Ramnek schreibt über das, was uns alle berührt.
+                  Verbindung und Verlust, Alltägliches und Phantasiertes – Hugo Ramnek schreibt über das, was uns berührt.
+                  <br />
+                  Mit Humor und Poesie.
                 </p>
               </div>
 
@@ -118,28 +174,28 @@ export default function HomeContent() {
               </motion.div>
 
               <motion.div
-                className="flex flex-wrap items-center gap-3 lg:gap-6 text-xs lg:text-sm"
+                className="grid grid-cols-3 gap-2 lg:gap-4 max-w-md text-center"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8 }}
               >
-                <div className="flex items-center gap-1.5 lg:gap-2">
-                  <svg className="w-4 h-4 lg:w-5 lg:h-5 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                <div className="flex flex-col items-center gap-1.5">
+                  <svg className="w-5 h-5 lg:w-6 lg:h-6 text-accent/70" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
-                  <span className="font-semibold">Mehrfach ausgezeichnet</span>
+                  <span className="text-xs lg:text-sm">Mehrfach ausgezeichnet</span>
                 </div>
-                <div className="flex items-center gap-1.5 lg:gap-2">
-                  <svg className="w-4 h-4 lg:w-5 lg:h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex flex-col items-center gap-1.5">
+                  <svg className="w-5 h-5 lg:w-6 lg:h-6 text-accent/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                   </svg>
-                  <span className="font-semibold">9 Bücher publiziert</span>
+                  <span className="text-xs lg:text-sm">10 Bücher</span>
                 </div>
-                <div className="flex items-center gap-1.5 lg:gap-2">
-                  <svg className="w-4 h-4 lg:w-5 lg:h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex flex-col items-center gap-1.5">
+                  <svg className="w-5 h-5 lg:w-6 lg:h-6 text-accent/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
                   </svg>
-                  <span className="font-semibold">Prosa, Lyrik & Performance</span>
+                  <span className="text-xs lg:text-sm">Literatur & Performance</span>
                 </div>
               </motion.div>
             </motion.div>
@@ -164,21 +220,52 @@ export default function HomeContent() {
         </div>
       </section>
 
-      {/* Literarischer Ausschnitt */}
+      {/* Next Event Teaser */}
       <section className="py-24 px-6 bg-accent/5">
         <motion.div
-          className="max-w-4xl mx-auto"
+          className="max-w-7xl mx-auto"
           {...fadeInUp}
           viewport={{ once: true }}
           whileInView="animate"
           initial="initial"
         >
-          <div className="bg-white/50 backdrop-blur p-12 rounded-lg shadow-lg border-l-4 border-accent">
-            <p className="text-2xl italic leading-relaxed mb-6">
-              »Die längste Nacht erzählt von alten Eltern und anderen Sterblichen.
-              Von Verlust und Verbindung. Von der Gemeinschaft der Lebenden und der Toten.«
-            </p>
-            <p className="text-accent font-semibold">— Die längste Nacht</p>
+          <div className="bg-gradient-to-br from-accent to-accent-dark text-white rounded-lg shadow-2xl overflow-hidden">
+            <div className="grid lg:grid-cols-2 gap-0">
+              <div className="p-8 lg:p-12 flex flex-col justify-center">
+                <p className="text-sm uppercase tracking-wider font-semibold mb-4 opacity-90">Nächste Lesung</p>
+                <div className="mb-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <p className="text-xl font-bold">{upcomingEvents[0].date} um {upcomingEvents[0].time}</p>
+                  </div>
+                  <h2 className="text-3xl lg:text-4xl font-bold mb-2 text-white">{upcomingEvents[0].title}</h2>
+                  <p className="text-xl mb-4 opacity-95">{upcomingEvents[0].subtitle}</p>
+                  <div className="flex items-center gap-2 opacity-90">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>{upcomingEvents[0].shortLocation}</span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setSelectedEvent(upcomingEvents[0])}
+                  className="inline-block bg-white text-accent px-8 py-3 rounded font-bold hover:bg-gray-100 transition-all shadow-lg self-start"
+                >
+                  Details & Anmeldung →
+                </button>
+              </div>
+              <div className="relative h-64 lg:h-auto">
+                <Image
+                  src="/hugo-ramnek.jpg"
+                  alt="Hugo Ramnek Performance"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
           </div>
         </motion.div>
       </section>
@@ -207,16 +294,16 @@ export default function HomeContent() {
               className="bg-white/70 backdrop-blur p-8 rounded-lg shadow-lg hover:shadow-xl transition-all"
               variants={fadeInUp}
             >
-              <div className="mb-6">
+              <div className="mb-3">
                 <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-4">
                   <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                   </svg>
                 </div>
-                <p className="text-lg font-bold text-accent mb-2">Literarische Welt</p>
+                <p className="text-lg font-bold text-accent mb-2">Manfred Papst, NZZ am Sonntag</p>
               </div>
               <p className="italic leading-relaxed">
-                »Zärtlich und witzig, melancholisch und grotesk – Ramnek beherrscht die ganze Klaviatur der Gefühle.«
+                »Ramnek verbindet die Kunst des Fabulierens mit formaler Disziplin, Leichtigkeit mit Tiefgang, Musikalität mit Witz.«
               </p>
             </motion.div>
 
@@ -224,16 +311,16 @@ export default function HomeContent() {
               className="bg-white/70 backdrop-blur p-8 rounded-lg shadow-lg hover:shadow-xl transition-all"
               variants={fadeInUp}
             >
-              <div className="mb-6">
+              <div className="mb-3">
                 <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-4">
                   <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                   </svg>
                 </div>
-                <p className="text-lg font-bold text-accent mb-2">Neue Zürcher Zeitung</p>
+                <p className="text-lg font-bold text-accent mb-2">Alexander Peer, Poesiegalerie</p>
               </div>
               <p className="italic leading-relaxed">
-                »Ein Autor, der uns mit jedem Buch aufs Neue überrascht und berührt. Große Literatur!«
+                »Seine Gedichte sind wie Gefäße, die ein Stück Leben in sich tragen.«
               </p>
             </motion.div>
 
@@ -241,16 +328,16 @@ export default function HomeContent() {
               className="bg-white/70 backdrop-blur p-8 rounded-lg shadow-lg hover:shadow-xl transition-all"
               variants={fadeInUp}
             >
-              <div className="mb-6">
+              <div className="mb-3">
                 <div className="w-16 h-16 rounded-full bg-accent/10 flex items-center justify-center mb-4">
                   <svg className="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                   </svg>
                 </div>
-                <p className="text-lg font-bold text-accent mb-2">Der Standard</p>
+                <p className="text-lg font-bold text-accent mb-2">Delia Dahinden, Theaterschaffende</p>
               </div>
               <p className="italic leading-relaxed">
-                »Seine Leseperformances sind Ereignisse. Literatur wird hier zum Erlebnis für alle Sinne.«
+                »Ramnek auf der Bühne: Er zieht das Publikum in seinen Bann mit seiner präzisen Sprache, seinem Humor, seinem Rhythmus und seiner Präsenz.«
               </p>
             </motion.div>
           </motion.div>
@@ -269,9 +356,10 @@ export default function HomeContent() {
           >
             <h2 className="mb-8">Der Schriftsteller</h2>
             <p className="text-lead max-w-3xl mx-auto mb-8 leading-relaxed">
-              Hugo Ramnek, geboren 1960 in Klagenfurt, aufgewachsen an der österreichisch-slowenischen
-              Grenze in Bleiburg/Pliberk, studierte Deutsch und Englisch in Wien und Dublin. Seit 1989
-              lebt der Schriftsteller in Zürich. Von 2001 – 2005 besuchte er die Schauspiel Schule Zürich.
+              Hugo Ramnek, geboren 1960 in Klagenfurt, aufgewachsen an der österreichisch-slowenischen 
+              Grenze in Bleiburg/Pliberk, studierte Deutsch und Englisch in Wien und Dublin. 
+              Von 2001 bis 2005 besuchte er die Schauspiel Schule Zürich. 
+              Der Autor und Leseperformer lebt in Zürich und Wien.
             </p>
 
             <div className="bg-accent/10 border-l-4 border-accent p-8 rounded max-w-3xl mx-auto mb-12">
@@ -281,16 +369,30 @@ export default function HomeContent() {
               </p>
             </div>
 
-            {/* Video */}
-            <div className="max-w-3xl mx-auto mb-12">
-              <div className="relative pb-[56.25%] h-0 overflow-hidden rounded-lg shadow-2xl">
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full"
-                  src="https://www.youtube.com/embed/8y989jHw2Sk"
-                  title="Hugo Ramnek"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+            {/* Bildergalerie */}
+            <div className="max-w-5xl mx-auto mb-12">
+              <div className="grid grid-cols-3 gap-6">
+                {[
+                  '/gallery/Bildschirmfoto 2022-11-05 um 19.03.07.png',
+                  '/gallery/HR im Tonstudio.jpg',
+                  '/gallery/HR Voodoozeh Michael Solscher:Zürich liest.jpeg',
+                ].map((image, index) => (
+                  <motion.div
+                    key={index}
+                    className="relative aspect-[2/3] overflow-hidden rounded-lg shadow-xl hover:shadow-2xl transition-all group"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <Image
+                      src={image}
+                      alt=""
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </motion.div>
+                ))}
               </div>
             </div>
 
@@ -298,7 +400,7 @@ export default function HomeContent() {
               Hugo Ramnek tritt regelmäßig bei den Theater-Performances der Improvisationsgruppe
               <em> und jetzt</em> (Leitung: Peter Honegger) auf und unterrichtet am Liceo Artistico.
               Seine Lesungen sind oft Performances mit Musikern wie Balts Nill & Urs Sibi Sibold (fÖn&tÖn),
-              Michael Jaeger, Arthur Ottowitz, Martin Schumacher, Marco Todisco.
+              Michael Jaeger, Arthur Ottowitz, Martin Schumacher und der Puppenspielerin Delia Dahinden.
             </p>
           </motion.div>
 
@@ -348,7 +450,7 @@ export default function HomeContent() {
                 </svg>
               </div>
               <h3 className="mb-3">Bachmann-Preis</h3>
-              <p>Teilnahme an den Tagen der deutschsprachigen Literatur 2012 in Klagenfurt</p>
+              <p>Nomination Tage der deutschsprachigen Literatur 2012 in Klagenfurt</p>
             </motion.div>
           </div>
 
@@ -462,7 +564,7 @@ export default function HomeContent() {
                           ★ Ausgezeichnet
                         </span>
                       )}
-                      <p className="text-base leading-relaxed line-clamp-3 mb-4 flex-1">
+                      <p className="text-base leading-relaxed mb-4 flex-1">
                         {book.description}
                       </p>
                       <div className="flex items-center justify-end mt-auto pt-4 border-t border-gray-200">
@@ -477,24 +579,6 @@ export default function HomeContent() {
             ))}
           </motion.div>
         </div>
-      </section>
-
-      {/* Literarischer Ausschnitt 3 */}
-      <section className="py-24 px-6">
-        <motion.div
-          className="max-w-4xl mx-auto"
-          {...fadeInUp}
-          viewport={{ once: true }}
-          whileInView="animate"
-          initial="initial"
-        >
-          <div className="bg-white/50 backdrop-blur p-12 rounded-lg shadow-lg border-l-4 border-accent">
-            <p className="text-2xl italic leading-relaxed mb-6">
-              »Zärtlich und witzig, melancholisch und grotesk sind die preisgekrönten Texte
-              des österreichischen Autors, der in Zürich lebt.«
-            </p>
-          </div>
-        </motion.div>
       </section>
 
       {/* Der Plan: Live Erleben */}
@@ -515,7 +599,7 @@ export default function HomeContent() {
           </motion.div>
 
           <motion.div
-            className="grid lg:grid-cols-2 gap-10 mb-20"
+            className="grid md:grid-cols-2 gap-6 mb-20"
             variants={staggerContainer}
             viewport={{ once: true }}
             whileInView="animate"
@@ -527,50 +611,75 @@ export default function HomeContent() {
                 subtitle: 'Die längste Nacht',
                 description: 'Hugo Ramnek liest, begleitet von Puppen, gebaut und geführt von Delia Dahinden.',
                 image: '/covers/die-laengste-nacht.jpg',
+                date: '20. November 2024',
+                time: '19:30 Uhr',
+                location: 'Atelier für Kunst, Zürich',
               },
               {
                 title: 'Ramnek und fÖn&tÖn',
                 subtitle: 'Seeliebe und andere Fallen',
                 description: 'Leseperformance mit dem Duo fÖn&tÖn – zärtlich, witzig, melancholisch.',
                 image: '/covers/der-letzte-badegast.jpg',
+                date: '15. März 2025',
+                time: '19:30 Uhr',
+                location: 'Literaturhaus Zürich',
               },
               {
                 title: 'Ramnek & Schumacher',
                 subtitle: 'Das Letzte von Leopold',
                 description: 'Die Fabelei über einen Zierkarpfen, erzählt und zum Klingen gebracht.',
                 image: '/covers/das-letzte-von-leopold.jpg',
+                date: '10. Mai 2025',
+                time: '19:00 Uhr',
+                location: 'Buchhandlung Beer, St. Gallen',
               },
               {
                 title: 'Ramnek & Jaeger',
                 subtitle: 'Ramneks Jukebox',
                 description: 'Literatur trifft Pop – Michael Jaeger verwandelt Worte in Improvisation.',
                 image: '/covers/meine-ge-ge-generation.jpg',
+                date: 'Auf Anfrage',
+                time: '',
+                location: 'Verschiedene Orte',
               },
             ].map((performance, index) => (
               <motion.div
                 key={index}
-                className="bg-white/70 backdrop-blur rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-all group"
+                className="bg-white/50 backdrop-blur rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all group"
                 variants={fadeInUp}
               >
-                <div className="grid md:grid-cols-2">
-                  <div className="relative aspect-[3/4] md:aspect-auto">
-                    <Image
-                      src={performance.image}
-                      alt={performance.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  </div>
-                  <div className="p-8 flex flex-col justify-center">
-                    <h3 className="mb-2 group-hover:text-accent transition-colors">
-                      {performance.title}
-                    </h3>
-                    <p className="text-xl italic text-accent/80 mb-4">
-                      {performance.subtitle}
-                    </p>
-                    <p className="leading-relaxed">
-                      {performance.description}
-                    </p>
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src={performance.image}
+                    alt={performance.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="p-5">
+                  <h3 className="text-xl font-semibold mb-1 group-hover:text-accent transition-colors">
+                    {performance.title}
+                  </h3>
+                  <p className="text-sm italic text-accent/70 mb-3">
+                    {performance.subtitle}
+                  </p>
+                  <p className="text-sm leading-relaxed text-gray-600 mb-3">
+                    {performance.description}
+                  </p>
+                  <div className="space-y-1 text-xs text-gray-500 border-t border-gray-200 pt-3">
+                    <div className="flex items-center gap-2">
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      <span>{performance.date}{performance.time && `, ${performance.time}`}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      <span>{performance.location}</span>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -627,30 +736,12 @@ export default function HomeContent() {
             whileInView="animate"
             initial="initial"
           >
-            {[
-              {
-                date: '15. März 2025',
-                time: '19:30 Uhr',
-                title: 'Die längste Nacht',
-                location: 'Literaturhaus Zürich',
-              },
-              {
-                date: '22. April 2025',
-                time: '20:00 Uhr',
-                title: 'Ramnek & fÖn&tÖn',
-                location: 'Theater am Gleis, Winterthur',
-              },
-              {
-                date: '10. Mai 2025',
-                time: '19:00 Uhr',
-                title: 'Lesungen aus der Schneekugel',
-                location: 'Buchhandlung Beer, St. Gallen',
-              },
-            ].map((event, index) => (
+            {upcomingEvents.map((event) => (
               <motion.div
-                key={index}
-                className="bg-white/70 backdrop-blur p-8 rounded-lg shadow-lg hover:shadow-xl transition-all border-l-4 border-accent"
+                key={event.id}
+                className="bg-white/70 backdrop-blur p-8 rounded-lg shadow-lg hover:shadow-xl transition-all border-l-4 border-accent cursor-pointer"
                 variants={fadeInUp}
+                onClick={() => setSelectedEvent(event)}
               >
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                   <div className="flex-1">
@@ -664,14 +755,18 @@ export default function HomeContent() {
                       <span className="text-gray-600">•</span>
                       <span className="text-gray-600">{event.time}</span>
                     </div>
-                    <h3 className="mb-2">{event.title}</h3>
+                    <h3 className="mb-1">{event.title}</h3>
+                    <p className="text-gray-600 italic mb-2">{event.subtitle}</p>
                     <div className="flex items-center gap-2 text-gray-600">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
-                      <span>{event.location}</span>
+                      <span>{event.shortLocation}</span>
                     </div>
+                  </div>
+                  <div className="text-accent font-semibold">
+                    Details →
                   </div>
                 </div>
               </motion.div>
@@ -842,6 +937,70 @@ export default function HomeContent() {
           </div>
         </div>
       </section>
+
+      {/* Event Details Modal */}
+      {selectedEvent && (
+        <div
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={() => setSelectedEvent(null)}
+        >
+          <motion.div
+            className="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="sticky top-0 bg-accent text-white p-6 rounded-t-lg">
+              <button
+                onClick={() => setSelectedEvent(null)}
+                className="absolute top-4 right-4 text-white hover:bg-white/20 rounded-full p-2 transition-all"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              <div className="flex items-center gap-3 mb-3">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <p className="font-bold">{selectedEvent.date} um {selectedEvent.time}</p>
+              </div>
+              <h2 className="text-2xl lg:text-3xl font-bold mb-2">{selectedEvent.title}</h2>
+              <p className="text-lg opacity-95">{selectedEvent.subtitle}</p>
+            </div>
+
+            <div className="p-6 lg:p-8">
+              <div className="prose prose-lg max-w-none mb-6">
+                {selectedEvent.description.split('\n\n').map((paragraph, index) => (
+                  <p key={index} className="mb-4 leading-relaxed">{paragraph}</p>
+                ))}
+              </div>
+
+              <div className="bg-accent/5 p-6 rounded-lg space-y-4 border-l-4 border-accent">
+                <div>
+                  <p className="font-semibold text-accent mb-1">Eintritt</p>
+                  <p>{selectedEvent.price}</p>
+                </div>
+
+                <div>
+                  <p className="font-semibold text-accent mb-1">Ort</p>
+                  <p>{selectedEvent.location.name}</p>
+                  {selectedEvent.location.contact && <p>{selectedEvent.location.contact}</p>}
+                  <p>{selectedEvent.location.address}</p>
+                  <p>{selectedEvent.location.city}</p>
+                  {selectedEvent.location.phone && (
+                    <p className="mt-2">
+                      <a href={`tel:${selectedEvent.location.phone}`} className="text-accent hover:underline">
+                        {selectedEvent.location.phone}
+                      </a>
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </>
   );
 }

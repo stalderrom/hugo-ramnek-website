@@ -38,6 +38,22 @@ export interface Book {
 
 export const books: Book[] = [
   {
+    id: 'schuhgeschichten',
+    title: 'Ich erröte vom Schaft bis zur Sohle',
+    subtitle: 'Schuhgeschichten',
+    description: '30 Geschichten, in denen Schuhe die zentrale Rolle spielen – als Hauptdarsteller und Dreh- und Angelpunkt der Handlung.',
+    longDescription: 'Eine Anthologie mit 30 Geschichten, in denen Schuhe die zentrale Rolle spielen – nicht als bloße Requisiten, sondern als Hauptdarsteller und Dreh- und Angelpunkte der Handlung. Die Sammlung erforscht Schuhe als Symbole und Metaphern, die Erinnerungen bergen und Identität reflektieren.\n\nHerausgegeben von Wolfram Schneider-Lastin und Christa Prameshuber. Mit Beiträgen von 30 Autoren aus Deutschland, Österreich und der Schweiz, darunter Katrin Seglitz, Martin Kunz, Barbara Traber, Sabine Bierich, Alice Grünfelder, Patricia Büttiker, Esther Banz und Hugo Ramnek.',
+    format: 'Gebundene Ausgabe',
+    pages: 200,
+    price: { eur: '29.90', chf: '29.90' },
+    isbn: '978-3-907238-52-3',
+    ebook: false,
+    coverImage: '/covers/schuhgeschichten.jpg',
+    purchaseLink: 'https://arisverlag.ch/products/ich-errote-vom-schaft-bis-zur-sohle-schuhgeschichten',
+    year: 2026,
+    specialNotes: 'Erscheint im März 2026. Eine Anthologie mit einem Beitrag von Hugo Ramnek, herausgegeben von Wolfram Schneider-Lastin und Christa Prameshuber.',
+  },
+  {
     id: 'die-laengste-nacht',
     title: 'Die längste Nacht',
     subtitle: 'Elegische Flüchtigkeiten',
@@ -163,8 +179,8 @@ export const books: Book[] = [
     id: 'meine-ge-ge-generation',
     title: 'Meine Ge-Ge-Generation',
     subtitle: 'Eine Jukebox',
-    description: '45 neue Texte zu alten Scheiben – Die Buch gewordene Jukebox.',
-    longDescription: '45 neue Texte zu alten Scheiben: In seinem Buch spielt der musikbegeisterte Performance-Autor Hugo Ramnek mit den Songs, die in seinem Kopf spielen.\n\nVon B wie Beatles über J wie Joplin bis Z wie Zappa nimmt er seine Leser mit auf eine Musikreise durch Rock, Roll, Blues, Country, Soul, Folk, Punk, Beat und Austro-Pop. Rhythmische Texte in allen Tonlagen, nicht bloß Coverversionen: Furchtlose Neuinterpretationen der Songs von Legenden wie Jimi Hendrix, Neil Young, Tom Waits, John Lee Hooker, Franz Schubert, Bob Dylan oder David Bowie, manchmal nah an den Originalen, manchmal fern, nie imitierend, aber immer damit verbunden.\n\nEine literarische Jukebox mit Stücken zum Auswählen, Nachhören, Mitsingen und Querlesen.\n\nDer Kopf ist Radio, Jukebox und iPod in einem. Da drinnen singt es. In uns singt es. Es singt uns durch die Tage. Viele Menschen haben in ihrem Oberstübchen Hunderte von Songs, Melodien, Refrains gelagert. Oft sind es Lieder ihrer Generation (aber nicht nur), die sie nicht mehr aus dem Kopf kriegen.',
+    description: '45 neue Texte zu alten Scheiben – die Buch gewordene Jukebox.',
+    longDescription: '45 neue Texte zu alten Scheiben: In seinem Buch spielt der musikbegeisterte Performance-Autor Hugo Ramnek mit den Songs, die in seinem Kopf spielen.\n\nVon B wie Beatles über J wie Joplin bis Z wie Zappa nimmt er seine Leser mit auf eine Musikreise durch Rock, Roll, Blues, Country, Soul, Folk, Punk, Beat und Austro-Pop. Rhythmische Texte in allen Tonlagen, nicht bloß Coverversionen: Furchtlose Neuinterpretationen der Songs von Legenden wie Jimi Hendrix, Neil Young, Tom Waits, John Lee Hooker, Franz Schubert, Bob Dylan oder David Bowie, manchmal nah an den Originalen, manchmal fern, nie imitierend, aber immer damit verbunden.\n\nEine literarische Jukebox mit Stücken zum Auswählen, Nachhören, Mitsingen und Querlesen.',
     format: 'Gebundene Ausgabe, 103 Seiten, Lesebändchen',
     pages: 103,
     price: { eur: '18.80', chf: '26.50' },
@@ -207,7 +223,7 @@ export const books: Book[] = [
     id: 'der-letzte-badegast',
     title: 'Der letzte Badegast',
     subtitle: 'Roman',
-    description: 'Der Jahrhundertsommer ist vorbei. Es regnet. Nur noch wenige Tage hat das Seebad geöffnet.',
+    description: 'Der Jahrhundertsommer ist vorbei. Es regnet. Nur noch wenige Tage hat das Seebad geöffnet. Da taucht ein Fremder auf.',
     longDescription: 'Der Jahrhundertsommer ist vorbei. Es regnet. Nur noch wenige Tage hat das Seebad geöffnet. Der Bademeister muss jetzt vor allem putzen. Er ist erkältet und verdrossen. Da steht plötzlich jemand neben ihm, in der Hand einen Kübel mit einem lebendigen Fisch. Der Unbekannte beginnt zu erzählen.\n\nMit sanfter Hartnäckigkeit verwickelt er seinen Zuhörer in eine Lebensgeschichte, in der es von grotesken Begebenheiten wimmelt. Der Bademeister hört zu, Erinnerungen steigen in ihm auf, die beiden Lebensläufe beginnen sich ineinander zu spiegeln. Die Erzählungen geraten ins Schwimmen. Wer hat was gesagt? Wer ist überhaupt wer?\n\nWasser trägt. Wasser trügt. Und es geht um mehr als Geplänkel: Der Erzähler wie sein Gast haben Geschichten von Liebe und Tod erlebt, die sie nicht vergessen können.\n\nDer letzte Badegast erzählt von der Macht der Geschichten, die das Leben befestigen und gleichzeitig verflüssigen und bisweilen unterspülen. Er erzählt vom ersten Kuss und vom letzten Blick, von geteilter Lust, verfehlter Liebe und verborgener Scham, von der Sehnsucht nach dem Anderen und der Angst davor. Und immer wieder vom Wasser.',
     excerpt: `– Das Wasser trägt.
 – Das Wasser trügt. Alles Üble kommt aus dem Feuchten.
@@ -306,21 +322,13 @@ Wie vor einem Wunder stehen die Kleinstädter und staunen, was tagsüber und doc
 Silvie Aigner schreibt dazu: „Popotnigs Bilder und Ramneks Texte sind im Austausch, sie kommentieren, begleiten, flankieren, ergänzen, widersprechen einander. ›Momentum‹ – das Wort bedeutet den Augenblick, die Bewegung, den Schwung. Gemeint ist der Moment, in dem eine Sequenz aus dem Zeitkontinuum herausgehoben wird. Der Maler und der Schriftsteller greifen sich Momente heraus, die sie festhalten – im Bild, im Text –, um sie der Vergänglichkeit zu entreißen."
 
 Ein dreisprachiges Buch (Deutsch, Slowenisch, Englisch), das Kunst und Literatur in einen spannenden Dialog treten lässt.`,
-    excerpt: `vielleicht
+    excerpt: `Lichtblick
 
-vielleicht werde ich dereinst
-auf diesem weg zurückkehren
-die stufen hinaufsteigen
-an diesem tor klopfen
+Du als Ich
+Stiller Begleiter
+In aufhellender Finsternis
 
-vielleicht wird mir jemand öffnen
-und fragen woher ich komme
-vielleicht werde ich dann sagen
-von dorther wo dieser weg endet
-
-und vielleicht wird man mich
-hereinbitten und sagen
-willkommen du bist zu hause`,
+Der Spiegel schaut zurück`,
     format: 'Deutsch, Slowenisch, Englisch, Gebundene Ausgabe, 96 Seiten',
     pages: 96,
     price: { eur: '20.00', chf: '30.00' },
