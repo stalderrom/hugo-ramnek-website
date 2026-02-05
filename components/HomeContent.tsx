@@ -20,100 +20,27 @@ const staggerContainer = {
   }
 };
 
-const upcomingEvents = [
-  {
-    id: 1,
-    date: '20. November 2024',
-    time: '19:30 Uhr',
-    title: 'DIE LÄNGSTE NACHT',
-    subtitle: 'Leseperformance mit Puppen',
-    shortLocation: 'Atelier für Kunst und Philosophie, Zürich',
-    description: `Hugo Ramnek liest aus seinem Gedichtband Die längste Nacht, begleitet von Puppen, gebaut und geführt von Delia Dahinden.
-
-Die Gedichte erzählen von alten Eltern und anderen Sterblichen. Von Verlust und Verbindung. Von der Gemeinschaft der Lebenden und der Toten. Dahindens Puppen und Ramneks Texte stehen, nein, schweben in einem Dialog und erzählen von der Anwesenheit der Abwesenden, gleichzeitig beredt und stumm. Und wirken gerade deshalb so berührend.`,
-    price: '30 / 20',
-    location: {
-      name: 'Atelier für Kunst und Philosophie',
-      contact: 'Martin Kunz',
-      address: 'Albisriederstrasse 162',
-      city: '8003 Zürich',
-      phone: '+41794309714'
-    }
-  },
-  {
-    id: 2,
-    date: '15. März 2025',
-    time: '19:30 Uhr',
-    title: 'Die längste Nacht',
-    subtitle: 'Leseperformance',
-    shortLocation: 'Literaturhaus Zürich',
-    description: 'Eine berührende Lesung aus dem Gedichtband Die längste Nacht.',
-    price: '25 / 18',
-    location: {
-      name: 'Literaturhaus Zürich',
-      address: 'Limmatquai 62',
-      city: '8001 Zürich',
-      phone: ''
-    }
-  },
-  {
-    id: 3,
-    date: '22. April 2025',
-    time: '20:00 Uhr',
-    title: 'Ramnek & fÖn&tÖn',
-    subtitle: 'Leseperformance mit Musik',
-    shortLocation: 'Theater am Gleis, Winterthur',
-    description: 'Leseperformance mit dem Duo fÖn&tÖn – zärtlich, witzig, melancholisch.',
-    price: '30 / 22',
-    location: {
-      name: 'Theater am Gleis',
-      address: 'Theaterstrasse 6',
-      city: '8400 Winterthur',
-      phone: ''
-    }
-  },
-];
+// Events werden bald bekannt gegeben
+const upcomingEvents: Array<{
+  id: number;
+  date: string;
+  time: string;
+  title: string;
+  subtitle: string;
+  shortLocation: string;
+  description: string;
+  price: string;
+  location: {
+    name: string;
+    contact?: string;
+    address: string;
+    city: string;
+    phone: string;
+  };
+}> = [];
 
 export default function HomeContent() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
   const [selectedEvent, setSelectedEvent] = useState<typeof upcomingEvents[0] | null>(null);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormStatus('sending');
-
-    try {
-      // TODO: Ersetzen Sie 'YOUR_CONTACT_FORM_ID' mit Ihrer Formspree Form ID
-      const response = await fetch('https://formspree.io/f/YOUR_CONTACT_FORM_ID', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          _subject: 'Neue Kontaktanfrage von Website',
-        }),
-      });
-
-      if (response.ok) {
-        setFormStatus('sent');
-        setFormData({ name: '', email: '', message: '' });
-        setTimeout(() => setFormStatus('idle'), 3000);
-      } else {
-        throw new Error('Form submission failed');
-      }
-    } catch (error) {
-      setFormStatus('error');
-      setTimeout(() => setFormStatus('idle'), 3000);
-    }
-  };
 
   return (
     <>
@@ -232,30 +159,22 @@ export default function HomeContent() {
           <div className="bg-gradient-to-br from-accent to-accent-dark text-white rounded-lg shadow-2xl overflow-hidden">
             <div className="grid lg:grid-cols-2 gap-0">
               <div className="p-8 lg:p-12 flex flex-col justify-center">
-                <p className="text-sm uppercase tracking-wider font-semibold mb-4 opacity-90">Nächste Lesung</p>
+                <p className="text-sm uppercase tracking-wider font-semibold mb-4 opacity-90">Lesungen & Termine</p>
                 <div className="mb-6">
-                  <div className="flex items-center gap-3 mb-3">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                    </svg>
-                    <p className="text-xl font-bold">{upcomingEvents[0].date} um {upcomingEvents[0].time}</p>
-                  </div>
-                  <h2 className="text-3xl lg:text-4xl font-bold mb-2 text-white">{upcomingEvents[0].title}</h2>
-                  <p className="text-xl mb-4 opacity-95">{upcomingEvents[0].subtitle}</p>
-                  <div className="flex items-center gap-2 opacity-90">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    <span>{upcomingEvents[0].shortLocation}</span>
-                  </div>
+                  <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-white">Neue Termine folgen in Kürze</h2>
+                  <p className="text-xl mb-4 opacity-95 leading-relaxed">
+                    Die Termine für die kommenden Lesungen und Leseperformances werden in den nächsten Wochen hier veröffentlicht.
+                  </p>
+                  <p className="text-lg opacity-90 leading-relaxed">
+                    Für Buchungsanfragen und Informationen zu privaten Lesungen nutzen Sie gerne die Kontaktmöglichkeiten weiter unten.
+                  </p>
                 </div>
-                <button
-                  onClick={() => setSelectedEvent(upcomingEvents[0])}
+                <a
+                  href="#kontakt"
                   className="inline-block bg-white text-accent px-8 py-3 rounded font-bold hover:bg-gray-100 transition-all shadow-lg self-start"
                 >
-                  Details & Anmeldung →
-                </button>
+                  Kontakt aufnehmen →
+                </a>
               </div>
               <div className="relative h-64 lg:h-auto">
                 <Image
@@ -599,91 +518,50 @@ export default function HomeContent() {
           </motion.div>
 
           <motion.div
-            className="grid md:grid-cols-2 gap-6 mb-20"
-            variants={staggerContainer}
+            className="mb-20"
+            {...fadeInUp}
             viewport={{ once: true }}
             whileInView="animate"
             initial="initial"
           >
-            {[
-              {
-                title: 'Ramnek & Dahinden',
-                subtitle: 'Die längste Nacht',
-                description: 'Hugo Ramnek liest, begleitet von Puppen, gebaut und geführt von Delia Dahinden.',
-                image: '/covers/die-laengste-nacht.jpg',
-                date: '20. November 2024',
-                time: '19:30 Uhr',
-                location: 'Atelier für Kunst, Zürich',
-              },
-              {
-                title: 'Ramnek und fÖn&tÖn',
-                subtitle: 'Seeliebe und andere Fallen',
-                description: 'Leseperformance mit dem Duo fÖn&tÖn – zärtlich, witzig, melancholisch.',
-                image: '/covers/der-letzte-badegast.jpg',
-                date: '15. März 2025',
-                time: '19:30 Uhr',
-                location: 'Literaturhaus Zürich',
-              },
-              {
-                title: 'Ramnek & Schumacher',
-                subtitle: 'Das Letzte von Leopold',
-                description: 'Die Fabelei über einen Zierkarpfen, erzählt und zum Klingen gebracht.',
-                image: '/covers/das-letzte-von-leopold.jpg',
-                date: '10. Mai 2025',
-                time: '19:00 Uhr',
-                location: 'Buchhandlung Beer, St. Gallen',
-              },
-              {
-                title: 'Ramnek & Jaeger',
-                subtitle: 'Ramneks Jukebox',
-                description: 'Literatur trifft Pop – Michael Jaeger verwandelt Worte in Improvisation.',
-                image: '/covers/meine-ge-ge-generation.jpg',
-                date: 'Auf Anfrage',
-                time: '',
-                location: 'Verschiedene Orte',
-              },
-            ].map((performance, index) => (
-              <motion.div
-                key={index}
-                className="bg-white/50 backdrop-blur rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all group"
-                variants={fadeInUp}
-              >
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={performance.image}
-                    alt={performance.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-5">
-                  <h3 className="text-xl font-semibold mb-1 group-hover:text-accent transition-colors">
-                    {performance.title}
-                  </h3>
-                  <p className="text-sm italic text-accent/70 mb-3">
-                    {performance.subtitle}
-                  </p>
-                  <p className="text-sm leading-relaxed text-gray-600 mb-3">
-                    {performance.description}
-                  </p>
-                  <div className="space-y-1 text-xs text-gray-500 border-t border-gray-200 pt-3">
-                    <div className="flex items-center gap-2">
-                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      <span>{performance.date}{performance.time && `, ${performance.time}`}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                      <span>{performance.location}</span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+            <div className="bg-white/70 backdrop-blur p-12 rounded-lg shadow-lg text-center">
+              <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-10 h-10 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Performance-Formate</h3>
+              <div className="max-w-3xl mx-auto space-y-4 text-left">
+                <p className="leading-relaxed">
+                  Hugo Ramnek tritt in verschiedenen Performance-Formaten auf:
+                </p>
+                <ul className="space-y-3 text-gray-700">
+                  <li className="flex items-start gap-3">
+                    <span className="text-accent font-bold">•</span>
+                    <span><strong>Ramnek & Dahinden:</strong> Leseperformance mit Puppen von Delia Dahinden</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-accent font-bold">•</span>
+                    <span><strong>Ramnek & fÖn&tÖn:</strong> Mit dem Musikduo Balts Nill & Urs Sibi Sibold</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-accent font-bold">•</span>
+                    <span><strong>Ramnek & Schumacher:</strong> Mit Musiker Martin Schumacher</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-accent font-bold">•</span>
+                    <span><strong>Ramnek & Jaeger:</strong> Literatur trifft Pop mit Michael Jaeger</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <span className="text-accent font-bold">•</span>
+                    <span><strong>und jetzt:</strong> Theater-Performances mit der Improvisationsgruppe (Leitung: Peter Honegger)</span>
+                  </li>
+                </ul>
+                <p className="leading-relaxed pt-4">
+                  Konkrete Termine für diese Formate werden in Kürze bekannt gegeben.
+                </p>
+              </div>
+            </div>
           </motion.div>
 
           {/* CTA - Call to Action */}
@@ -725,52 +603,35 @@ export default function HomeContent() {
           >
             <h2 className="mb-4">Kommende Lesungen</h2>
             <p className="text-lead">
-              Erleben Sie Hugo Ramnek live – Termine 2025
+              Neue Termine werden in Kürze bekannt gegeben
             </p>
           </motion.div>
 
           <motion.div
-            className="space-y-6 mb-12"
-            variants={staggerContainer}
+            className="mb-12"
+            {...fadeInUp}
             viewport={{ once: true }}
             whileInView="animate"
             initial="initial"
           >
-            {upcomingEvents.map((event) => (
-              <motion.div
-                key={event.id}
-                className="bg-white/70 backdrop-blur p-8 rounded-lg shadow-lg hover:shadow-xl transition-all border-l-4 border-accent cursor-pointer"
-                variants={fadeInUp}
-                onClick={() => setSelectedEvent(event)}
+            <div className="bg-white/70 backdrop-blur p-12 rounded-lg shadow-lg text-center border-l-4 border-accent">
+              <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg className="w-10 h-10 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold mb-4">Neue Lesungstermine folgen</h3>
+              <p className="text-lg leading-relaxed max-w-2xl mx-auto mb-6">
+                Die Termine für die kommenden Lesungen und Leseperformances werden in den nächsten Wochen hier veröffentlicht.
+                Schauen Sie bald wieder vorbei oder kontaktieren Sie uns direkt für aktuelle Informationen.
+              </p>
+              <a
+                href="#kontakt"
+                className="inline-block bg-accent hover:bg-accent-dark text-white px-8 py-3 rounded font-bold transition-all shadow-lg"
               >
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-4 mb-3">
-                      <div className="flex items-center gap-2 text-accent font-bold">
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <span>{event.date}</span>
-                      </div>
-                      <span className="text-gray-600">•</span>
-                      <span className="text-gray-600">{event.time}</span>
-                    </div>
-                    <h3 className="mb-1">{event.title}</h3>
-                    <p className="text-gray-600 italic mb-2">{event.subtitle}</p>
-                    <div className="flex items-center gap-2 text-gray-600">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                      <span>{event.shortLocation}</span>
-                    </div>
-                  </div>
-                  <div className="text-accent font-semibold">
-                    Details →
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                Jetzt Kontakt aufnehmen
+              </a>
+            </div>
           </motion.div>
 
           <motion.div
@@ -807,7 +668,7 @@ export default function HomeContent() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="max-w-2xl mx-auto">
             <motion.div
               className="bg-white/70 backdrop-blur p-10 rounded-lg shadow-xl"
               {...fadeInUp}
@@ -859,9 +720,9 @@ export default function HomeContent() {
                   </div>
                   <div>
                     <p className="font-semibold text-sm text-gray-600 mb-1">E-Mail</p>
-                    <a href="mailto:ramnek@sunrise.ch" className="text-accent hover:underline">
-                      ramnek@sunrise.ch
-                    </a>
+                    <p className="text-accent">
+                      ramnek (at) sunrise (punkt) ch
+                    </p>
                   </div>
                 </div>
               </div>
@@ -872,67 +733,6 @@ export default function HomeContent() {
                   Buchen kann man ihn trotzdem. Dann hat man Gesicht und Buch analog. Und live.
                 </p>
               </div>
-            </motion.div>
-
-            <motion.div
-              className="bg-white/70 backdrop-blur p-10 rounded-lg shadow-xl"
-              {...fadeInUp}
-              viewport={{ once: true }}
-              whileInView="animate"
-              initial="initial"
-            >
-              <h3 className="mb-8 pb-4 border-b-2 border-accent/20">Nachricht senden</h3>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block font-semibold mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded focus:ring-2 focus:ring-accent focus:border-accent transition-all bg-white"
-                    placeholder="Ihr Name"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block font-semibold mb-2">
-                    E-Mail
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded focus:ring-2 focus:ring-accent focus:border-accent transition-all bg-white"
-                    placeholder="ihre.email@beispiel.com"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="message" className="block font-semibold mb-2">
-                    Nachricht
-                  </label>
-                  <textarea
-                    id="message"
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    required
-                    rows={5}
-                    className="w-full px-4 py-3 border-2 border-gray-200 rounded focus:ring-2 focus:ring-accent focus:border-accent transition-all resize-none bg-white"
-                    placeholder="Ihre Nachricht..."
-                  />
-                </div>
-                <button
-                  type="submit"
-                  disabled={formStatus === 'sending'}
-                  className="w-full bg-accent hover:bg-accent-dark text-white px-8 py-4 rounded font-bold transition-all disabled:opacity-50 hover:shadow-lg"
-                >
-                  {formStatus === 'sending' ? 'Wird gesendet...' : formStatus === 'sent' ? '✓ Gesendet!' : formStatus === 'error' ? 'Fehler! Bitte erneut versuchen' : 'Absenden'}
-                </button>
-              </form>
             </motion.div>
           </div>
         </div>
