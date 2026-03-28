@@ -1,12 +1,19 @@
 import Navigation from '@/components/Navigation';
 import HomeContent from '@/components/HomeContent';
 import AccessibilityControls from '@/components/AccessibilityControls';
+import { client } from '@/sanity/lib/client';
+import { eventsQuery } from '@/sanity/lib/queries';
+import type { SanityEvent } from '@/sanity/types';
 
-export default function Home() {
+export const revalidate = 60; // Seite alle 60 Sekunden neu laden
+
+export default async function Home() {
+  const events: SanityEvent[] = await client.fetch(eventsQuery);
+
   return (
     <main className="min-h-screen">
       <Navigation />
-      <HomeContent />
+      <HomeContent events={events} />
       <AccessibilityControls />
 
       {/* Footer */}

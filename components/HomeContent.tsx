@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { books } from '@/data/books';
 import { useState } from 'react';
+import type { SanityEvent } from '@/sanity/types';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 40 },
@@ -20,27 +21,14 @@ const staggerContainer = {
   }
 };
 
-// Events werden bald bekannt gegeben
-const upcomingEvents: Array<{
-  id: number;
-  date: string;
-  time: string;
-  title: string;
-  subtitle: string;
-  shortLocation: string;
-  description: string;
-  price: string;
-  location: {
-    name: string;
-    contact?: string;
-    address: string;
-    city: string;
-    phone: string;
-  };
-}> = [];
+function formatDate(isoDate: string): string {
+  const [year, month, day] = isoDate.split('-');
+  return `${day}.${month}.${year}`;
+}
 
-export default function HomeContent() {
-  const [selectedEvent, setSelectedEvent] = useState<typeof upcomingEvents[0] | null>(null);
+export default function HomeContent({ events }: { events: SanityEvent[] }) {
+  const [selectedEvent, setSelectedEvent] = useState<SanityEvent | null>(null);
+  const nextEvent = events[0] ?? null;
 
   return (
     <>
@@ -160,29 +148,61 @@ export default function HomeContent() {
             <div className="grid lg:grid-cols-2 gap-0">
               <div className="p-8 lg:p-12 flex flex-col justify-center">
                 <p className="text-sm uppercase tracking-wider font-semibold mb-4 opacity-90">Lesungen & Termine</p>
-                <div className="mb-6">
-                  <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-white">Neue Termine folgen in Kürze</h2>
-                  <p className="text-xl mb-4 opacity-95 leading-relaxed">
-                    Die Termine für die kommenden Lesungen und Leseperformances werden in den nächsten Wochen hier veröffentlicht.
-                  </p>
-                  <p className="text-lg opacity-90 leading-relaxed">
-                    Für Buchungsanfragen und Informationen zu privaten Lesungen nutzen Sie gerne die Kontaktmöglichkeiten weiter unten.
-                  </p>
-                </div>
-                <a
-                  href="#kontakt"
-                  className="inline-block bg-white text-accent px-8 py-3 rounded font-bold hover:bg-gray-100 transition-all shadow-lg self-start"
-                >
-                  Kontakt aufnehmen →
-                </a>
+                {nextEvent ? (
+                  <div className="mb-6">
+                    <p className="text-lg font-semibold opacity-90 mb-1">
+                      {formatDate(nextEvent.date)}{nextEvent.time ? ` · ${nextEvent.time}` : ''}{nextEvent.shortLocation ? ` · ${nextEvent.shortLocation}` : ''}
+                    </p>
+                    <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-white">{nextEvent.title}</h2>
+                    {nextEvent.subtitle && (
+                      <p className="text-xl opacity-95 leading-relaxed">{nextEvent.subtitle}</p>
+                    )}
+                  </div>
+                ) : (
+                  <div className="mb-6">
+                    <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-white">Neue Termine folgen in Kürze</h2>
+                    <p className="text-xl mb-4 opacity-95 leading-relaxed">
+                      Die Termine für die kommenden Lesungen und Leseperformances werden in den nächsten Wochen hier veröffentlicht.
+                    </p>
+                    <p className="text-lg opacity-90 leading-relaxed">
+                      Für Buchungsanfragen und Informationen zu privaten Lesungen nutzen Sie gerne die Kontaktmöglichkeiten weiter unten.
+                    </p>
+                  </div>
+                )}
+                {nextEvent ? (
+                  <button
+                    onClick={() => setSelectedEvent(nextEvent)}
+                    className="inline-block bg-white text-accent px-8 py-3 rounded font-bold hover:bg-gray-100 transition-all shadow-lg self-start"
+                  >
+                    Details ansehen →
+                  </button>
+                ) : (
+                  <a
+                    href="#kontakt"
+                    className="inline-block bg-white text-accent px-8 py-3 rounded font-bold hover:bg-gray-100 transition-all shadow-lg self-start"
+                  >
+                    Kontakt aufnehmen →
+                  </a>
+                )}
               </div>
               <div className="relative h-64 lg:h-auto">
-                <Image
-                  src="/hugo-ramnek.jpg"
-                  alt="Hugo Ramnek Performance"
-                  fill
-                  className="object-cover"
-                />
+                {nextEvent?.imageUrl ? (
+                  <img
+                    src={nextEvent.imageUrl}
+                    alt={nextEvent.title}
+                    className="w-full h-full object-cover absolute inset-0"
+                    style={nextEvent.imageHotspot ? {
+                      objectPosition: `${nextEvent.imageHotspot.x * 100}% ${nextEvent.imageHotspot.y * 100}%`
+                    } : undefined}
+                  />
+                ) : (
+                  <Image
+                    src="/hugo-ramnek.jpg"
+                    alt="Hugo Ramnek Performance"
+                    fill
+                    className="object-cover"
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -614,24 +634,66 @@ export default function HomeContent() {
             whileInView="animate"
             initial="initial"
           >
-            <div className="bg-white/70 backdrop-blur p-12 rounded-lg shadow-lg text-center border-l-4 border-accent">
-              <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-10 h-10 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
+            {events.length > 0 ? (
+              <div className="space-y-4">
+                {events.map((event) => (
+                  <button
+                    key={event._id}
+                    onClick={() => setSelectedEvent(event)}
+                    className="w-full text-left bg-white/70 backdrop-blur rounded-lg shadow-lg border-l-4 border-accent hover:shadow-xl transition-all group overflow-hidden"
+                  >
+                    <div className="flex items-stretch">
+                      <div className="flex-1 p-6">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                          <div>
+                            <p className="text-sm font-semibold text-accent mb-1">
+                              {formatDate(event.date)}{event.time ? ` · ${event.time}` : ''}
+                            </p>
+                            <h3 className="text-xl font-bold">{event.title}</h3>
+                            {event.subtitle && <p className="text-gray-600 mt-1">{event.subtitle}</p>}
+                          </div>
+                          <div className="flex items-center gap-3 text-sm text-gray-500 shrink-0">
+                            {event.shortLocation && <span>{event.shortLocation}</span>}
+                            <span className="text-accent font-semibold group-hover:underline">Details →</span>
+                          </div>
+                        </div>
+                      </div>
+                      {event.imageUrl && (
+                        <div className="w-32 sm:w-48 shrink-0 relative">
+                          <img
+                            src={event.imageUrl}
+                            alt={event.title}
+                            className="w-full h-full object-cover"
+                            style={event.imageHotspot ? {
+                              objectPosition: `${event.imageHotspot.x * 100}% ${event.imageHotspot.y * 100}%`
+                            } : undefined}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </button>
+                ))}
               </div>
-              <h3 className="text-2xl font-bold mb-4">Neue Lesungstermine folgen</h3>
-              <p className="text-lg leading-relaxed max-w-2xl mx-auto mb-6">
-                Die Termine für die kommenden Lesungen und Leseperformances werden in den nächsten Wochen hier veröffentlicht.
-                Schauen Sie bald wieder vorbei oder kontaktieren Sie uns direkt für aktuelle Informationen.
-              </p>
-              <a
-                href="#kontakt"
-                className="inline-block bg-accent hover:bg-accent-dark text-white px-8 py-3 rounded font-bold transition-all shadow-lg"
-              >
-                Jetzt Kontakt aufnehmen
-              </a>
-            </div>
+            ) : (
+              <div className="bg-white/70 backdrop-blur p-12 rounded-lg shadow-lg text-center border-l-4 border-accent">
+                <div className="w-20 h-20 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <svg className="w-10 h-10 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold mb-4">Neue Lesungstermine folgen</h3>
+                <p className="text-lg leading-relaxed max-w-2xl mx-auto mb-6">
+                  Die Termine für die kommenden Lesungen und Leseperformances werden in den nächsten Wochen hier veröffentlicht.
+                  Schauen Sie bald wieder vorbei oder kontaktieren Sie uns direkt für aktuelle Informationen.
+                </p>
+                <a
+                  href="#kontakt"
+                  className="inline-block bg-accent hover:bg-accent-dark text-white px-8 py-3 rounded font-bold transition-all shadow-lg"
+                >
+                  Jetzt Kontakt aufnehmen
+                </a>
+              </div>
+            )}
           </motion.div>
 
           <motion.div
@@ -763,39 +825,58 @@ export default function HomeContent() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <p className="font-bold">{selectedEvent.date} um {selectedEvent.time}</p>
+                <p className="font-bold">{formatDate(selectedEvent.date)}{selectedEvent.time ? ` um ${selectedEvent.time}` : ''}</p>
               </div>
               <h2 className="text-2xl lg:text-3xl font-bold mb-2">{selectedEvent.title}</h2>
-              <p className="text-lg opacity-95">{selectedEvent.subtitle}</p>
+              {selectedEvent.subtitle && <p className="text-lg opacity-95">{selectedEvent.subtitle}</p>}
             </div>
 
-            <div className="p-6 lg:p-8">
-              <div className="prose prose-lg max-w-none mb-6">
-                {selectedEvent.description.split('\n\n').map((paragraph, index) => (
-                  <p key={index} className="mb-4 leading-relaxed">{paragraph}</p>
-                ))}
+            {selectedEvent.imageUrl && (
+              <div className="relative h-64 w-full overflow-hidden">
+                <img
+                  src={selectedEvent.imageUrl}
+                  alt={selectedEvent.title}
+                  className="w-full h-full object-cover"
+                  style={selectedEvent.imageHotspot ? {
+                    objectPosition: `${selectedEvent.imageHotspot.x * 100}% ${selectedEvent.imageHotspot.y * 100}%`
+                  } : undefined}
+                />
               </div>
+            )}
+
+            <div className="p-6 lg:p-8">
+              {selectedEvent.description && (
+                <div className="prose prose-lg max-w-none mb-6">
+                  {selectedEvent.description.split('\n\n').map((paragraph, index) => (
+                    <p key={index} className="mb-4 leading-relaxed">{paragraph}</p>
+                  ))}
+                </div>
+              )}
 
               <div className="bg-accent/5 p-6 rounded-lg space-y-4 border-l-4 border-accent">
-                <div>
-                  <p className="font-semibold text-accent mb-1">Eintritt</p>
-                  <p>{selectedEvent.price}</p>
-                </div>
+                {selectedEvent.price && (
+                  <div>
+                    <p className="font-semibold text-accent mb-1">Eintritt</p>
+                    <p>{selectedEvent.price}</p>
+                  </div>
+                )}
 
-                <div>
-                  <p className="font-semibold text-accent mb-1">Ort</p>
-                  <p>{selectedEvent.location.name}</p>
-                  {selectedEvent.location.contact && <p>{selectedEvent.location.contact}</p>}
-                  <p>{selectedEvent.location.address}</p>
-                  <p>{selectedEvent.location.city}</p>
-                  {selectedEvent.location.phone && (
-                    <p className="mt-2">
-                      <a href={`tel:${selectedEvent.location.phone}`} className="text-accent hover:underline">
-                        {selectedEvent.location.phone}
-                      </a>
-                    </p>
-                  )}
-                </div>
+                {selectedEvent.location && (
+                  <div>
+                    <p className="font-semibold text-accent mb-1">Ort</p>
+                    {selectedEvent.location.name && <p>{selectedEvent.location.name}</p>}
+                    {selectedEvent.location.contact && <p>{selectedEvent.location.contact}</p>}
+                    {selectedEvent.location.address && <p>{selectedEvent.location.address}</p>}
+                    {selectedEvent.location.city && <p>{selectedEvent.location.city}</p>}
+                    {selectedEvent.location.phone && (
+                      <p className="mt-2">
+                        <a href={`tel:${selectedEvent.location.phone}`} className="text-accent hover:underline">
+                          {selectedEvent.location.phone}
+                        </a>
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>
