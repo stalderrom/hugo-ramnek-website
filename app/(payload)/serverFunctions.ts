@@ -2,8 +2,9 @@
 import { handleServerFunctions } from '@payloadcms/next/layouts'
 import configPromise from '@payload-config'
 import { importMap } from './admin/importMap'
+import type { ServerFunctionClientArgs } from 'payload'
 
-export async function serverFunction(args: Parameters<typeof handleServerFunctions>[0]) {
+export async function serverFunction(args: ServerFunctionClientArgs) {
   return handleServerFunctions({
     ...args,
     config: configPromise,
