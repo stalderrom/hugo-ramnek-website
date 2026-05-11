@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Literata } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 
 const literata = Literata({
   subsets: ["latin"],
@@ -13,16 +13,14 @@ export const metadata: Metadata = {
   keywords: ["Hugo Ramnek", "Schriftsteller", "Autor", "Zürich", "Literatur", "Leseperformance"],
 };
 
-export default function RootLayout({
+export default function SiteLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <html lang="de" className="scroll-smooth">
-      <body
-        className={`${literata.variable} antialiased`}
-      >
+      <body className={`${literata.variable} antialiased`}>
         {children}
       </body>
     </html>

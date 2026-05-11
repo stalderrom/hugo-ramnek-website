@@ -1,14 +1,21 @@
 import Navigation from '@/components/Navigation';
 import HomeContent from '@/components/HomeContent';
 import AccessibilityControls from '@/components/AccessibilityControls';
-import { client } from '@/sanity/lib/client';
-import { eventsQuery } from '@/sanity/lib/queries';
-import type { SanityEvent } from '@/sanity/types';
+import { getPayload } from 'payload';
+import config from '@payload-config';
+import type { Event } from '@/types/event';
 
-export const revalidate = 60; // Seite alle 60 Sekunden neu laden
+export const revalidate = 60;
 
 export default async function Home() {
-  const events: SanityEvent[] = await client.fetch(eventsQuery);
+  const payload = await getPayload({ config });
+  const { docs } = await payload.find({
+    collection: 'events',
+    sort: 'date',
+    depth: 1,
+  });
+
+  const events = docs as unknown as Event[];
 
   return (
     <main className="min-h-screen">

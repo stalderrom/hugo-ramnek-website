@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { books } from '@/data/books';
 import { useState } from 'react';
-import type { SanityEvent } from '@/sanity/types';
+import type { Event, EventImage } from '@/types/event';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 40 },
@@ -22,12 +22,20 @@ const staggerContainer = {
 };
 
 function formatDate(isoDate: string): string {
-  const [year, month, day] = isoDate.split('-');
+  const d = new Date(isoDate);
+  const day = String(d.getUTCDate()).padStart(2, '0');
+  const month = String(d.getUTCMonth() + 1).padStart(2, '0');
+  const year = d.getUTCFullYear();
   return `${day}.${month}.${year}`;
 }
 
-export default function HomeContent({ events }: { events: SanityEvent[] }) {
-  const [selectedEvent, setSelectedEvent] = useState<SanityEvent | null>(null);
+function getImageUrl(image: Event['image']): string | null {
+  if (!image || typeof image === 'string') return null;
+  return (image as EventImage).url ?? null;
+}
+
+export default function HomeContent({ events }: { events: Event[] }) {
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const nextEvent = events[0] ?? null;
 
   return (
@@ -186,14 +194,11 @@ export default function HomeContent({ events }: { events: SanityEvent[] }) {
                 )}
               </div>
               <div className="relative h-64 lg:h-auto">
-                {nextEvent?.imageUrl ? (
+                {getImageUrl(nextEvent?.image) ? (
                   <img
-                    src={nextEvent.imageUrl}
-                    alt={nextEvent.title}
+                    src={getImageUrl(nextEvent?.image)!}
+                    alt={nextEvent?.title}
                     className="w-full h-full object-cover absolute inset-0"
-                    style={nextEvent.imageHotspot ? {
-                      objectPosition: `${nextEvent.imageHotspot.x * 100}% ${nextEvent.imageHotspot.y * 100}%`
-                    } : undefined}
                   />
                 ) : (
                   <Image
@@ -638,7 +643,7 @@ export default function HomeContent({ events }: { events: SanityEvent[] }) {
               <div className="space-y-4">
                 {events.map((event) => (
                   <button
-                    key={event._id}
+                    key={event.id}
                     onClick={() => setSelectedEvent(event)}
                     className="w-full text-left bg-white/70 backdrop-blur rounded-lg shadow-lg border-l-4 border-accent hover:shadow-xl transition-all group overflow-hidden"
                   >
@@ -658,15 +663,12 @@ export default function HomeContent({ events }: { events: SanityEvent[] }) {
                           </div>
                         </div>
                       </div>
-                      {event.imageUrl && (
+                      {getImageUrl(event.image) && (
                         <div className="w-32 sm:w-48 shrink-0 relative">
                           <img
-                            src={event.imageUrl}
+                            src={getImageUrl(event.image)!}
                             alt={event.title}
                             className="w-full h-full object-cover"
-                            style={event.imageHotspot ? {
-                              objectPosition: `${event.imageHotspot.x * 100}% ${event.imageHotspot.y * 100}%`
-                            } : undefined}
                           />
                         </div>
                       )}
@@ -831,15 +833,12 @@ export default function HomeContent({ events }: { events: SanityEvent[] }) {
               {selectedEvent.subtitle && <p className="text-lg opacity-95">{selectedEvent.subtitle}</p>}
             </div>
 
-            {selectedEvent.imageUrl && (
+            {getImageUrl(selectedEvent.image) && (
               <div className="relative h-64 w-full overflow-hidden">
                 <img
-                  src={selectedEvent.imageUrl}
+                  src={getImageUrl(selectedEvent.image)!}
                   alt={selectedEvent.title}
                   className="w-full h-full object-cover"
-                  style={selectedEvent.imageHotspot ? {
-                    objectPosition: `${selectedEvent.imageHotspot.x * 100}% ${selectedEvent.imageHotspot.y * 100}%`
-                  } : undefined}
                 />
               </div>
             )}

@@ -1,0 +1,17 @@
+import type { Metadata } from 'next'
+import { RootPage, generatePageMetadata } from '@payloadcms/next/views'
+import config from '@payload-config'
+import { importMap } from '../importMap'
+import React from 'react'
+
+type Args = {
+  params: Promise<{ segments: string[] }>
+  searchParams: Promise<Record<string, string | string[]>>
+}
+
+export const generateMetadata = (args: Args): Promise<Metadata> =>
+  generatePageMetadata({ config, ...args })
+
+export default async function Page({ params, searchParams }: Args) {
+  return RootPage({ config, importMap, params, searchParams })
+}
