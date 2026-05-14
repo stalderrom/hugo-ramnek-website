@@ -9,10 +9,18 @@ export const revalidate = 60;
 
 export default async function Home() {
   const payload = await getPayload({ config });
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
   const { docs } = await payload.find({
     collection: 'events',
     sort: 'date',
     depth: 1,
+    where: {
+      date: {
+        greater_than_equal: today.toISOString(),
+      },
+    },
   });
 
   const events = docs as unknown as Event[];

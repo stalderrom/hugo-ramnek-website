@@ -11,6 +11,15 @@ export const Events: CollectionConfig = {
     defaultColumns: ['title', 'date', 'shortLocation'],
     listSearchableFields: ['title', 'shortLocation'],
   },
+  access: {
+    read: () => true,
+    create: ({ req: { user } }) => !!user,
+    update: ({ req: { user } }) => !!user,
+    delete: ({ req: { user } }) => {
+      const u = user as { role?: string } | null
+      return u?.role === 'admin'
+    },
+  },
   defaultSort: 'date',
   fields: [
     {
