@@ -16,6 +16,7 @@ export default async function Home() {
     collection: 'events',
     sort: 'date',
     depth: 1,
+    draft: false,
     where: {
       date: {
         greater_than_equal: today.toISOString(),

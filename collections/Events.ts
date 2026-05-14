@@ -17,6 +17,11 @@ export const Events: CollectionConfig = {
     update: ({ req: { user } }) => !!user,
     delete: ({ req: { user } }) => !!user,
   },
+  versions: {
+    drafts: {
+      autosave: false,
+    },
+  },
   defaultSort: 'date',
   fields: [
     {
