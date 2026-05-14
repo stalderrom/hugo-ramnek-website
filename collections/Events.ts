@@ -15,10 +15,7 @@ export const Events: CollectionConfig = {
     read: () => true,
     create: ({ req: { user } }) => !!user,
     update: ({ req: { user } }) => !!user,
-    delete: ({ req: { user } }) => {
-      const u = user as { role?: string } | null
-      return u?.role === 'admin'
-    },
+    delete: ({ req: { user } }) => !!user,
   },
   defaultSort: 'date',
   fields: [
