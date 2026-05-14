@@ -1,8 +1,17 @@
 import type { CollectionConfig, Access, FieldAccess } from 'payload'
 
+type UserWithRole = { id: string; role?: string } | null
+
 const isAdmin: Access = ({ req }) => {
-  const user = req.user as { role?: string } | null
+  const user = req.user as UserWithRole
   return user?.role === 'admin'
+}
+
+const isAdminOrSelf: Access = ({ req }) => {
+  const user = req.user as UserWithRole
+  if (!user) return false
+  if (user.role === 'admin') return true
+  return { id: { equals: user.id } }
 }
 
 const isAdminField: FieldAccess = ({ req }) => {
@@ -18,9 +27,9 @@ export const Users: CollectionConfig = {
   },
   auth: true,
   access: {
-    read: isAdmin,
+    read: isAdminOrSelf,
     create: isAdmin,
-    update: isAdmin,
+    update: isAdminOrSelf,
     delete: isAdmin,
   },
   fields: [
