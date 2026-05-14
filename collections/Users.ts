@@ -1,7 +1,14 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, Access, FieldAccess } from 'payload'
 
-const isAdmin = ({ req: { user } }: { req: { user: { role?: string } | null } }) =>
-  user?.role === 'admin'
+const isAdmin: Access = ({ req }) => {
+  const user = req.user as { role?: string } | null
+  return user?.role === 'admin'
+}
+
+const isAdminField: FieldAccess = ({ req }) => {
+  const user = req.user as { role?: string } | null
+  return user?.role === 'admin'
+}
 
 export const Users: CollectionConfig = {
   slug: 'users',
@@ -28,7 +35,7 @@ export const Users: CollectionConfig = {
         { label: 'Editor', value: 'editor' },
       ],
       access: {
-        update: isAdmin,
+        update: isAdminField,
       },
     },
   ],
