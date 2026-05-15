@@ -145,5 +145,20 @@ await client.query(`
 `)
 await client.query(`CREATE INDEX IF NOT EXISTS "books_additional_images_parent_idx" ON "books_additional_images" ("_parent_id")`)
 
+// Add books_id to payload_locked_documents_rels (required when Books collection is added)
+await client.query(`ALTER TABLE "payload_locked_documents_rels" ADD COLUMN IF NOT EXISTS "books_id" integer`)
+await client.query(`
+  DO $$ BEGIN
+    IF NOT EXISTS (
+      SELECT 1 FROM pg_constraint WHERE conname = 'payload_locked_documents_rels_books_id_books_id_fk'
+    ) THEN
+      ALTER TABLE "payload_locked_documents_rels"
+        ADD CONSTRAINT "payload_locked_documents_rels_books_id_books_id_fk"
+        FOREIGN KEY ("books_id") REFERENCES "books"("id") ON DELETE CASCADE;
+    END IF;
+  END $$
+`)
+await client.query(`CREATE INDEX IF NOT EXISTS "payload_locked_documents_rels_books_id_idx" ON "payload_locked_documents_rels" ("books_id")`)
+
 await client.end()
 console.log('Migrations complete')
