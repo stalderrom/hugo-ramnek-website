@@ -834,11 +834,11 @@ export default function HomeContent({ events }: { events: Event[] }) {
             </div>
 
             {getImageUrl(selectedEvent.image) && (
-              <div className="relative h-64 w-full overflow-hidden">
+              <div className="w-full">
                 <img
                   src={getImageUrl(selectedEvent.image)!}
                   alt={selectedEvent.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-auto object-contain"
                 />
               </div>
             )}
