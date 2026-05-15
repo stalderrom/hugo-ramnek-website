@@ -609,7 +609,7 @@ export default function HomeContent({ events }: { events: Event[] }) {
                 href="#kontakt"
                 className="inline-block bg-white text-accent px-6 lg:px-12 py-4 lg:py-5 rounded font-bold text-base lg:text-lg hover:bg-gray-100 transition-all shadow-xl"
               >
-                Kontaktinformationen
+                Kontaktinfos
               </a>
             </div>
           </motion.div>
