@@ -161,7 +161,7 @@ export default function HomeContent({ events }: { events: Event[] }) {
                     <p className="text-lg font-semibold text-white/70 mb-1">
                       {formatDate(nextEvent.date)}{nextEvent.time ? ` · ${nextEvent.time}` : ''}{nextEvent.shortLocation ? ` · ${nextEvent.shortLocation}` : ''}
                     </p>
-                    <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ color: '#ffffff', lineHeight: 1.0 }}>{nextEvent.title}</h2>
+                    <h2 className="text-3xl lg:text-4xl font-bold mb-4 leading-none">{nextEvent.title}</h2>
                     {nextEvent.subtitle && (
                       <p className="text-xl text-white/70 leading-relaxed">{nextEvent.subtitle}</p>
                     )}
@@ -598,7 +598,7 @@ export default function HomeContent({ events }: { events: Event[] }) {
             initial="initial"
           >
             <div className="bg-accent text-white p-16 text-center">
-              <h2 className="mb-6" style={{ color: '#ffffff' }}>
+              <h2 className="mb-6">
                 »Hugo Ramnek kann man meiden – oder mieten.«
               </h2>
               <p className="text-xl mb-10 opacity-95">
@@ -829,7 +829,7 @@ export default function HomeContent({ events }: { events: Event[] }) {
                 </svg>
                 <p className="font-bold">{formatDate(selectedEvent.date)}{selectedEvent.time ? ` um ${selectedEvent.time}` : ''}</p>
               </div>
-              <h2 className="text-2xl lg:text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>{selectedEvent.title}</h2>
+              <h2 className="text-2xl lg:text-3xl font-bold mb-2">{selectedEvent.title}</h2>
               {selectedEvent.subtitle && <p className="text-lg opacity-95">{selectedEvent.subtitle}</p>}
             </div>
 
