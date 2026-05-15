@@ -46,6 +46,8 @@ await client.query(`CREATE INDEX IF NOT EXISTS "_events_v_parent_id_idx" ON "_ev
 await client.query(`CREATE INDEX IF NOT EXISTS "_events_v_version__status_idx" ON "_events_v" ("version__status")`)
 await client.query(`CREATE INDEX IF NOT EXISTS "_events_v_snapshot_idx" ON "_events_v" ("snapshot")`)
 await client.query(`CREATE INDEX IF NOT EXISTS "_events_v_autosave_idx" ON "_events_v" ("autosave")`)
+await client.query(`ALTER TABLE "_events_v" ADD COLUMN IF NOT EXISTS "latest" boolean`)
+await client.query(`CREATE INDEX IF NOT EXISTS "_events_v_latest_idx" ON "_events_v" ("latest")`)
 
 // Foreign key only if not exists (postgres doesn't support IF NOT EXISTS for constraints)
 await client.query(`
