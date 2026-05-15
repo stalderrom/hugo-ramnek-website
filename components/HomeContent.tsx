@@ -41,7 +41,7 @@ export default function HomeContent({ events }: { events: Event[] }) {
   return (
     <>
       {/* Hero - Der Leser als Held */}
-      <section id="top" className="min-h-0 lg:min-h-screen flex items-start lg:items-center px-6 pt-12 lg:pt-32 pb-4 lg:pb-20 relative overflow-hidden">
+      <section id="top" className="min-h-0 lg:min-h-screen flex items-start lg:items-center px-6 pt-24 lg:pt-32 pb-4 lg:pb-20 relative overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-background"></div>
         </div>
