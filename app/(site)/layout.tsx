@@ -8,8 +8,8 @@ const literata = Literata({
 });
 
 export const metadata: Metadata = {
-  title: "Hugo Ramnek – Schriftsteller, Schauspieler, Lehrer",
-  description: "Hugo Ramnek, geboren 1960 in Kärnten, lebt als Schriftsteller, Schauspieler und Lehrer in Zürich. Autor von 'Die Schneekugel', 'Der letzte Badegast' und weiteren Werken.",
+  title: "Hugo Ramnek – Schriftsteller, Leseperformer, Schauspieler",
+  description: "Hugo Ramnek, geboren 1960 in Kärnten, lebt als Schriftsteller, Leseperformer und Schauspieler in Zürich. Autor von 'Die Schneekugel', 'Der letzte Badegast' und weiteren Werken.",
   keywords: ["Hugo Ramnek", "Schriftsteller", "Autor", "Zürich", "Literatur", "Leseperformance"],
 };
 

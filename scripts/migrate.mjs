@@ -62,5 +62,77 @@ await client.query(`
   END $$
 `)
 
+// Books collection
+await client.query(`
+  CREATE TABLE IF NOT EXISTS "books" (
+    "id" serial PRIMARY KEY,
+    "slug" varchar UNIQUE NOT NULL,
+    "title" varchar NOT NULL,
+    "subtitle" varchar,
+    "description" varchar,
+    "long_description" varchar,
+    "excerpt" varchar,
+    "year" numeric,
+    "format" varchar,
+    "pages" numeric,
+    "price_eur" varchar,
+    "price_chf" varchar,
+    "isbn" varchar,
+    "ebook" boolean DEFAULT false,
+    "purchase_link" varchar,
+    "special_notes" varchar,
+    "cover_image_id" integer,
+    "sort_order" numeric DEFAULT 99,
+    "updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+    "created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+  )
+`)
+await client.query(`CREATE INDEX IF NOT EXISTS "books_slug_idx" ON "books" ("slug")`)
+
+await client.query(`
+  CREATE TABLE IF NOT EXISTS "books_awards" (
+    "id" serial PRIMARY KEY,
+    "_order" integer NOT NULL,
+    "_parent_id" integer NOT NULL,
+    "award" varchar NOT NULL
+  )
+`)
+await client.query(`CREATE INDEX IF NOT EXISTS "books_awards_parent_idx" ON "books_awards" ("_parent_id")`)
+
+await client.query(`
+  CREATE TABLE IF NOT EXISTS "books_reviews" (
+    "id" serial PRIMARY KEY,
+    "_order" integer NOT NULL,
+    "_parent_id" integer NOT NULL,
+    "author" varchar NOT NULL,
+    "source" varchar NOT NULL,
+    "text" varchar NOT NULL,
+    "link" varchar
+  )
+`)
+await client.query(`CREATE INDEX IF NOT EXISTS "books_reviews_parent_idx" ON "books_reviews" ("_parent_id")`)
+
+await client.query(`
+  CREATE TABLE IF NOT EXISTS "books_media_links" (
+    "id" serial PRIMARY KEY,
+    "_order" integer NOT NULL,
+    "_parent_id" integer NOT NULL,
+    "title" varchar NOT NULL,
+    "url" varchar NOT NULL,
+    "type" varchar NOT NULL
+  )
+`)
+await client.query(`CREATE INDEX IF NOT EXISTS "books_media_links_parent_idx" ON "books_media_links" ("_parent_id")`)
+
+await client.query(`
+  CREATE TABLE IF NOT EXISTS "books_additional_images" (
+    "id" serial PRIMARY KEY,
+    "_order" integer NOT NULL,
+    "_parent_id" integer NOT NULL,
+    "image_id" integer
+  )
+`)
+await client.query(`CREATE INDEX IF NOT EXISTS "books_additional_images_parent_idx" ON "books_additional_images" ("_parent_id")`)
+
 await client.end()
 console.log('Migrations complete')

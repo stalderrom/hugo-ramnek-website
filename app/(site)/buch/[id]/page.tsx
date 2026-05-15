@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
-import { getBookById, getAllBookIds } from '@/data/books';
+import { getBookById, getAllBookIds, type Book } from '@/data/books';
+import { getPayload } from 'payload';
+import config from '@payload-config';
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Metadata } from 'next';
@@ -10,14 +12,66 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
+async function getBook(slug: string): Promise<Book | undefined> {
+  try {
+    const payload = await getPayload({ config });
+    const { docs } = await payload.find({
+      collection: 'books',
+      where: { slug: { equals: slug } },
+      depth: 1,
+      limit: 1,
+    });
+    if (docs.length > 0) {
+      const doc = docs[0];
+      const cover = doc.coverImage as { url?: string } | null;
+      return {
+        id: (doc.slug as string) || String(doc.id),
+        title: doc.title as string,
+        subtitle: (doc.subtitle as string) || '',
+        description: (doc.description as string) || '',
+        longDescription: doc.longDescription as string | undefined,
+        excerpt: doc.excerpt as string | undefined,
+        format: (doc.format as string) || '',
+        pages: (doc.pages as number) || 0,
+        price: {
+          eur: ((doc.price as { eur?: string })?.eur) || '',
+          chf: ((doc.price as { chf?: string })?.chf) || '',
+        },
+        isbn: (doc.isbn as string) || '',
+        ebook: (doc.ebook as boolean) || false,
+        coverImage: cover?.url || `/covers/${doc.slug}.jpg`,
+        additionalImages: ((doc.additionalImages as Array<{ image?: { url?: string } }>) || [])
+          .map((ai) => ai.image?.url || '')
+          .filter(Boolean),
+        purchaseLink: (doc.purchaseLink as string) || '#',
+        year: doc.year as number | undefined,
+        awards: ((doc.awards as Array<{ award: string }>) || []).map((a) => a.award),
+        specialNotes: doc.specialNotes as string | undefined,
+        reviews: ((doc.reviews as Array<{ author: string; source: string; text: string; link?: string }>) || []).map((r) => ({
+          author: r.author,
+          source: r.source,
+          text: r.text,
+          link: r.link,
+        })),
+        mediaLinks: ((doc.mediaLinks as Array<{ title: string; url: string; type: string }>) || []).map((m) => ({
+          title: m.title,
+          url: m.url,
+          type: m.type as 'video' | 'audio' | 'article',
+        })),
+      };
+    }
+  } catch {
+    // fall through to static data
+  }
+  return getBookById(slug);
+}
+
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
-  const book = getBookById(resolvedParams.id);
+  const book = await getBook(resolvedParams.id);
 
   if (!book) {
-    return {
-      title: 'Buch nicht gefunden',
-    };
+    return { title: 'Buch nicht gefunden' };
   }
 
   return {
@@ -32,15 +86,22 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export async function generateStaticParams() {
-  const ids = getAllBookIds();
-  return ids.map((id) => ({
-    id: id,
-  }));
+  const staticIds = getAllBookIds().map((id) => ({ id }));
+  try {
+    const payload = await getPayload({ config });
+    const { docs } = await payload.find({ collection: 'books', limit: 100, depth: 0 });
+    const cmsIds = docs.map((doc) => ({ id: (doc.slug as string) || String(doc.id) }));
+    const all = [...staticIds, ...cmsIds];
+    const seen = new Set<string>();
+    return all.filter((p) => seen.has(p.id) ? false : (seen.add(p.id), true));
+  } catch {
+    return staticIds;
+  }
 }
 
 export default async function BookPage({ params }: PageProps) {
   const resolvedParams = await params;
-  const book = getBookById(resolvedParams.id);
+  const book = await getBook(resolvedParams.id);
 
   if (!book) {
     notFound();
@@ -115,15 +176,15 @@ export default async function BookPage({ params }: PageProps) {
           <div className="grid md:grid-cols-2 gap-16 lg:gap-20">
             {/* Book Cover */}
             <div className="relative">
-              <div className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-2xl">
-                <Image
-                  src={book.coverImage}
-                  alt={`Buchcover: ${book.title}`}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
+              <Image
+                src={book.coverImage}
+                alt={`Buchcover: ${book.title}`}
+                width={600}
+                height={840}
+                style={{ width: '100%', height: 'auto', borderRadius: '0.5rem' }}
+                className="shadow-2xl"
+                priority
+              />
             </div>
 
             {/* Book Details */}
@@ -226,12 +287,14 @@ export default async function BookPage({ params }: PageProps) {
               <h2 className="mb-10">Weitere Bilder</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {book.additionalImages.map((imagePath, index) => (
-                  <div key={index} className="relative aspect-[3/4] rounded-lg overflow-hidden shadow-xl hover:shadow-2xl transition-shadow">
+                  <div key={index}>
                     <Image
                       src={imagePath}
                       alt={`${book.title} - Bild ${index + 1}`}
-                      fill
-                      className="object-cover"
+                      width={600}
+                      height={840}
+                      style={{ width: '100%', height: 'auto', borderRadius: '0.5rem' }}
+                      className="shadow-xl hover:shadow-2xl transition-shadow"
                     />
                   </div>
                 ))}

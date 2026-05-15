@@ -3,9 +3,10 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { books } from '@/data/books';
 import { useState } from 'react';
 import type { Event, EventImage } from '@/types/event';
+import type { Book } from '@/data/books';
+import BookMockup from './BookMockup';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 40 },
@@ -34,7 +35,7 @@ function getImageUrl(image: Event['image']): string | null {
   return (image as EventImage).url ?? null;
 }
 
-export default function HomeContent({ events }: { events: Event[] }) {
+export default function HomeContent({ events, books }: { events: Event[]; books: Book[] }) {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const nextEvent = events[0] ?? null;
 
@@ -342,7 +343,7 @@ export default function HomeContent({ events }: { events: Event[] }) {
 
             <p className="max-w-3xl mx-auto leading-relaxed">
               Hugo Ramnek tritt regelmäßig bei den Theater-Performances der Improvisationsgruppe
-              <em> und jetzt</em> (Leitung: Peter Honegger) auf und unterrichtet am Liceo Artistico.
+              <em> und jetzt</em> (Leitung: Peter Honegger) auf und unterrichtete am Liceo Artistico.
               Seine Lesungen sind oft Performances mit Musikern wie Balts Nill & Urs Sibi Sibold (fÖn&tÖn),
               Michael Jaeger, Arthur Ottowitz, Martin Schumacher und der Puppenspielerin Delia Dahinden.
             </p>
@@ -440,7 +441,7 @@ export default function HomeContent({ events }: { events: Event[] }) {
                 <span className="text-accent text-xl">★</span>
                 <div>
                   <p className="font-semibold">2012</p>
-                  <p>Teilnahme Ingeborg-Bachmann-Preis, Klagenfurt</p>
+                  <p>Nomination Ingeborg-Bachmann-Preis, Klagenfurt</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -467,7 +468,7 @@ export default function HomeContent({ events }: { events: Event[] }) {
           >
             <h2 className="mb-6">Die Bücher</h2>
             <p className="text-lead max-w-3xl mx-auto">
-              Neun Bücher, jedes eine eigene Welt. Von der längsten Nacht bis zur Schneekugel –
+              Zehn Bücher, jedes eine eigene Welt. Von der längsten Nacht bis zur Schneekugel –
               Geschichten, die nachklingen.
             </p>
           </motion.div>
@@ -488,14 +489,7 @@ export default function HomeContent({ events }: { events: Event[] }) {
               >
                 <div className="group h-full flex flex-col bg-white/70 backdrop-blur rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all">
                   <Link href={`/buch/${book.id}`} className="flex-1 flex flex-col">
-                    <div className="relative aspect-[3/4] overflow-hidden">
-                      <Image
-                        src={book.coverImage}
-                        alt={book.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
+                    <BookMockup src={book.coverImage} alt={book.title} />
                     <div className="p-6 flex-1 flex flex-col">
                       <h3 className="mb-2 group-hover:text-accent transition-colors">
                         {book.title}
@@ -537,8 +531,8 @@ export default function HomeContent({ events }: { events: Event[] }) {
           >
             <h2 className="mb-6">Live erleben</h2>
             <p className="text-lead max-w-3xl mx-auto">
-              Hugo Ramnek liest nicht nur – er inszeniert. Mit Puppenspielern, Musikern und
-              Improvisationskünstlern entstehen einzigartige Abende.
+              Hugo Ramnek liest nicht nur – er inszeniert. Mit Puppenspieler:innen, Musiker:innen und
+              Improvisationskünstler:innen entstehen einzigartige Abende.
             </p>
           </motion.div>
 
@@ -582,9 +576,6 @@ export default function HomeContent({ events }: { events: Event[] }) {
                     <span><strong>und jetzt:</strong> Theater-Performances mit der Improvisationsgruppe (Leitung: Peter Honegger)</span>
                   </li>
                 </ul>
-                <p className="leading-relaxed pt-4">
-                  Konkrete Termine für diese Formate werden in Kürze bekannt gegeben.
-                </p>
               </div>
             </div>
           </motion.div>
@@ -771,10 +762,6 @@ export default function HomeContent({ events }: { events: Event[] }) {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                   </div>
-                  <div>
-                    <p className="font-semibold text-sm text-gray-600 mb-1">Telefon</p>
-                    <a href="tel:+41444226084" className="hover:text-accent transition-colors">+41 44 422 60 84</a>
-                  </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
@@ -793,7 +780,7 @@ export default function HomeContent({ events }: { events: Event[] }) {
 
               <div className="mt-10 pt-8 border-t-2 border-accent/20">
                 <p className="text-sm text-gray-600 italic leading-relaxed">
-                  Twitter-Account hat Hugo Ramnek keinen. Auch nicht Facebook.<br/>
+                  X-Account hat Hugo Ramnek keinen. Auch nicht Facebook oder Instagram.<br/>
                   Buchen kann man ihn trotzdem. Dann hat man Gesicht und Buch analog. Und live.
                 </p>
               </div>

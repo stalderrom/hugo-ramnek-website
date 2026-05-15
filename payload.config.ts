@@ -5,6 +5,7 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Events } from './collections/Events'
+import { Books } from './collections/Books'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -18,7 +19,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Events],
+  collections: [Users, Media, Events, Books],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
