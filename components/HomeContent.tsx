@@ -155,15 +155,15 @@ export default function HomeContent({ events }: { events: Event[] }) {
           <div className="bg-gradient-to-br from-accent to-accent-dark text-white rounded-lg shadow-2xl overflow-hidden">
             <div className="grid lg:grid-cols-2 gap-0">
               <div className="p-8 lg:p-12 flex flex-col justify-center">
-                <p className="text-sm uppercase tracking-wider font-semibold mb-4 opacity-90">Lesungen & Termine</p>
+                <p className="text-sm uppercase tracking-wider font-semibold mb-4 text-white/60">Lesungen & Termine</p>
                 {nextEvent ? (
                   <div className="mb-6">
-                    <p className="text-lg font-semibold opacity-90 mb-1">
+                    <p className="text-lg font-semibold text-white/70 mb-1">
                       {formatDate(nextEvent.date)}{nextEvent.time ? ` · ${nextEvent.time}` : ''}{nextEvent.shortLocation ? ` · ${nextEvent.shortLocation}` : ''}
                     </p>
                     <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-white">{nextEvent.title}</h2>
                     {nextEvent.subtitle && (
-                      <p className="text-xl opacity-95 leading-relaxed">{nextEvent.subtitle}</p>
+                      <p className="text-xl text-white/70 leading-relaxed">{nextEvent.subtitle}</p>
                     )}
                   </div>
                 ) : (
