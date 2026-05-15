@@ -43,7 +43,7 @@ export default function AccessibilityControls() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2 }}
-            className="absolute bottom-20 right-0 bg-white border-2 border-accent/20 rounded-lg shadow-2xl p-6 w-80 mb-2"
+            className="absolute bottom-20 right-0 bg-white border-2 border-accent/20 rounded-lg shadow-2xl p-6 w-[calc(100vw-3rem)] max-w-xs mb-2"
           >
             <h3 className="text-xl font-bold mb-4 text-gray-900">Leseeinstellungen</h3>
 
