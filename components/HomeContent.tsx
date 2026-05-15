@@ -598,7 +598,7 @@ export default function HomeContent({ events }: { events: Event[] }) {
             initial="initial"
           >
             <div className="bg-accent text-white p-16 text-center">
-              <h2 className="mb-6 text-white">
+              <h2 className="mb-6" style={{ color: '#ffffff' }}>
                 »Hugo Ramnek kann man meiden – oder mieten.«
               </h2>
               <p className="text-xl mb-10 opacity-95">
