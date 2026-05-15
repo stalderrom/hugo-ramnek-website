@@ -71,20 +71,28 @@ body.high-contrast {
   --gray-900: #000000;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-literata), Georgia, serif;
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  color: inherit;
-}
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-literata), Georgia, serif;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: inherit;
+  }
 
-/* Typografie Hierarchie - optimiert */
-h1 { font-size: 3.75rem; } /* 60px */
-h2 { font-size: 2.5rem; } /* 40px */
-h3 { font-size: 1.5rem; } /* 24px */
-p, li { font-size: 1rem; line-height: 1.7; } /* verwendet body font-size */
-.text-lead { font-size: 1.25rem; line-height: 1.65; } /* 125% of body */
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+
+  @media (min-width: 1024px) {
+    h1 { font-size: 3.75rem; }
+    h2 { font-size: 2.5rem; }
+    h3 { font-size: 1.5rem; }
+  }
+
+  p, li { font-size: 1rem; line-height: 1.7; }
+  .text-lead { font-size: 1.25rem; line-height: 1.65; }
+}
 
 .font-serif {
   font-family: var(--font-literata), Georgia, serif;

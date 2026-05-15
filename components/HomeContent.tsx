@@ -161,7 +161,7 @@ export default function HomeContent({ events }: { events: Event[] }) {
                     <p className="text-lg font-semibold text-white/70 mb-1">
                       {formatDate(nextEvent.date)}{nextEvent.time ? ` · ${nextEvent.time}` : ''}{nextEvent.shortLocation ? ` · ${nextEvent.shortLocation}` : ''}
                     </p>
-                    <h2 className="text-3xl lg:text-4xl font-bold mb-4 leading-none">{nextEvent.title}</h2>
+                    <h2 className="text-2xl lg:text-4xl font-bold mb-4 leading-tight break-words">{nextEvent.title}</h2>
                     {nextEvent.subtitle && (
                       <p className="text-xl text-white/70 leading-relaxed">{nextEvent.subtitle}</p>
                     )}
@@ -597,17 +597,17 @@ export default function HomeContent({ events }: { events: Event[] }) {
             whileInView="animate"
             initial="initial"
           >
-            <div className="bg-accent text-white p-16 text-center">
+            <div className="bg-accent text-white p-8 lg:p-16 text-center">
               <h2 className="mb-6">
                 »Hugo Ramnek kann man meiden – oder mieten.«
               </h2>
-              <p className="text-xl mb-10 opacity-95">
+              <p className="text-lg lg:text-xl mb-8 lg:mb-10 opacity-95">
                 Für Leseperformances im Solo, im Duo, im Trio.<br/>
                 Für Ihre Veranstaltung, Ihr Festival, Ihre Bühne.
               </p>
               <a
                 href="#kontakt"
-                className="inline-block bg-white text-accent px-12 py-5 rounded font-bold text-lg hover:bg-gray-100 transition-all shadow-xl"
+                className="inline-block bg-white text-accent px-6 lg:px-12 py-4 lg:py-5 rounded font-bold text-base lg:text-lg hover:bg-gray-100 transition-all shadow-xl"
               >
                 Kontaktinformationen
               </a>
