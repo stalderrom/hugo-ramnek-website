@@ -161,7 +161,7 @@ export default function HomeContent({ events }: { events: Event[] }) {
                     <p className="text-lg font-semibold text-white/70 mb-1">
                       {formatDate(nextEvent.date)}{nextEvent.time ? ` · ${nextEvent.time}` : ''}{nextEvent.shortLocation ? ` · ${nextEvent.shortLocation}` : ''}
                     </p>
-                    <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-white">{nextEvent.title}</h2>
+                    <h2 className="text-3xl lg:text-4xl font-bold mb-4" style={{ color: '#ffffff' }}>{nextEvent.title}</h2>
                     {nextEvent.subtitle && (
                       <p className="text-xl text-white/70 leading-relaxed">{nextEvent.subtitle}</p>
                     )}
