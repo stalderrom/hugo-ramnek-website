@@ -119,8 +119,19 @@ await client.query(`
     "_parent_id" integer NOT NULL,
     "title" varchar NOT NULL,
     "url" varchar NOT NULL,
-    "type" varchar NOT NULL
+    "media_type" varchar NOT NULL
   )
+`)
+// Rename 'type' -> 'media_type' if the old column still exists
+await client.query(`
+  DO $$ BEGIN
+    IF EXISTS (
+      SELECT 1 FROM information_schema.columns
+      WHERE table_name='books_media_links' AND column_name='type'
+    ) THEN
+      ALTER TABLE "books_media_links" RENAME COLUMN "type" TO "media_type";
+    END IF;
+  END $$
 `)
 await client.query(`CREATE INDEX IF NOT EXISTS "books_media_links_parent_idx" ON "books_media_links" ("_parent_id")`)
 

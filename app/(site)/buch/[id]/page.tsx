@@ -53,10 +53,10 @@ async function getBook(slug: string): Promise<Book | undefined> {
           text: r.text,
           link: r.link,
         })),
-        mediaLinks: ((doc.mediaLinks as Array<{ title: string; url: string; type: string }>) || []).map((m) => ({
+        mediaLinks: ((doc.mediaLinks as Array<{ title: string; url: string; mediaType: string }>) || []).map((m) => ({
           title: m.title,
           url: m.url,
-          type: m.type as 'video' | 'audio' | 'article',
+          type: m.mediaType as 'video' | 'audio' | 'article',
         })),
       };
     }

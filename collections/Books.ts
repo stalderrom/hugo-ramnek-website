@@ -83,7 +83,7 @@ export const Books: CollectionConfig = {
         { name: 'title', type: 'text', label: 'Titel', required: true },
         { name: 'url', type: 'text', label: 'URL', required: true },
         {
-          name: 'type',
+          name: 'mediaType',
           type: 'select',
           label: 'Typ',
           required: true,
