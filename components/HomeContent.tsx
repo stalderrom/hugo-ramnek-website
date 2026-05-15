@@ -829,7 +829,7 @@ export default function HomeContent({ events }: { events: Event[] }) {
                 </svg>
                 <p className="font-bold">{formatDate(selectedEvent.date)}{selectedEvent.time ? ` um ${selectedEvent.time}` : ''}</p>
               </div>
-              <h2 className="text-2xl lg:text-3xl font-bold mb-2">{selectedEvent.title}</h2>
+              <h2 className="text-2xl lg:text-3xl font-bold mb-2" style={{ color: '#ffffff' }}>{selectedEvent.title}</h2>
               {selectedEvent.subtitle && <p className="text-lg opacity-95">{selectedEvent.subtitle}</p>}
             </div>
 
