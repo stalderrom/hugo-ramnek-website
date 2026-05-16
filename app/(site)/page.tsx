@@ -20,7 +20,12 @@ export default async function Home() {
       sort: 'date',
       depth: 1,
       draft: false,
-      where: { date: { greater_than_equal: today.toISOString() } },
+      where: {
+        and: [
+          { date: { greater_than_equal: today.toISOString() } },
+          { _status: { equals: 'published' } },
+        ],
+      },
     }),
     payload.find({
       collection: 'books',
