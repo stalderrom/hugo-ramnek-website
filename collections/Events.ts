@@ -12,7 +12,11 @@ export const Events: CollectionConfig = {
     listSearchableFields: ['title', 'shortLocation'],
   },
   access: {
-    read: () => true,
+    read: ({ req: { user } }) => {
+      if (user) return true
+      return { _status: { equals: 'published' } }
+    },
+    readVersions: ({ req: { user } }) => !!user,
     create: ({ req: { user } }) => !!user,
     update: ({ req: { user } }) => !!user,
     delete: ({ req: { user } }) => !!user,
